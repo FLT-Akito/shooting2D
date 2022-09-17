@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1042405886776873733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1042405886776873735}
+  - component: {fileID: 6679193250780999623}
+  m_Layer: 0
+  m_Name: JemsApear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1042405886776873735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042405886776873733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.820705, y: -3.2773829, z: -6.6286006}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6679193250780999623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042405886776873733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3084bc1b0faedc040ba5cfef13cd8b3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 5832a8e3b1fbce24a8d865d631278271, type: 3}
+  - {fileID: 21300000, guid: 63194139a775c1a4c9c2069400426134, type: 3}
+  - {fileID: 21300000, guid: 42026a1faeabafe46b0e7a222fcd180d, type: 3}
+  - {fileID: 21300000, guid: 245492c759569eb479c1ba34a6f60f41, type: 3}
+  - {fileID: 21300000, guid: 975b9242abc3c6048abb507aea90e33d, type: 3}
+  - {fileID: 21300000, guid: caab61327aa757c44a6bdfe48710f788, type: 3}
+  bell: {fileID: 9955188868772013, guid: e5e0ebfa943bb3b46b759e394437f0fb, type: 3}
+  powerUp: {fileID: 5535080867988434, guid: 5d79f4d91944e294a8955d7eae066cf5, type: 3}
