@@ -68,8 +68,7 @@ public class PlayerController : MonoBehaviour
         nowAnime = stopAnimator;
         weaponMain = weaponNomal; //í èÌíeÇÕweaponNomal
         weaponSub = null;
-        
-        //dotween Ease éÌóﬁÇ≈í≤Ç◊ÇÈ
+               
     }
 
    
@@ -238,15 +237,8 @@ public class PlayerController : MonoBehaviour
                     {
                         GameObject op = Instantiate(option, this.transform.position, Quaternion.identity);
                         WeaponLaser laser = op.GetComponentInChildren<WeaponLaser>();
-                        laser.Player = op;
-                        //for(int i = count; count <= maxOptions; i++)
-                        //{
-                        //    var targetPosLeft = new Vector3(transform.position.x + (ofsetX - i),
-                        //        transform.position.y, transform.position.z);
-                        //   op = Instantiate(option, targetPosLeft, Quaternion.identity);
-                        //}
+                        laser.Player = op;                
                         op.transform.SetParent(this.transform); 
-                       // OptionPosi.position -= _optionPosition;
                         if (count == maxOptions)
                         {
                             gameManager.WeaponTextErace(powerupType);
@@ -363,16 +355,9 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Pwitem"))
         {
-            //var item = new GameObject().AddComponent<ItemNotice>();
             Destroy(collision.gameObject);
             gameManager.SetItems();
         }
-
-        //if(collision.gameObject.CompareTag("WipeoutItem"))
-        //{
-            
-        //    Destroy(collision.gameObject);
-        //}
 
         if (collision.gameObject.CompareTag("Jewelry"))
         {
