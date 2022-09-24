@@ -6,13 +6,13 @@ public class BulletBase : MonoBehaviour
 {
     protected float speed;
     protected Vector2 direction;
-    GameObject limit_WallLeft;
+    //GameObject limit_WallLeft;
 
 
 
     private void Start()
     {
-        limit_WallLeft = GameObject.Find("WallLeft");
+        //limit_WallLeft = GameObject.Find("WallLeft");
     }
 
     public void Init(Vector3 _position, float _speed, Vector2 _direction)
@@ -31,18 +31,26 @@ public class BulletBase : MonoBehaviour
 
     
 
-    public void EnemyBulletBroken(GameObject wallLeft)
-    {
-        if (this.gameObject.transform.position.x < wallLeft.transform.position.x)
-            Destroy(this.gameObject);
+    //public void EnemyBulletBroken(GameObject wallLeft)
+    //{
+    //    if (this.gameObject.transform.position.x < wallLeft.transform.position.x)
+    //        Destroy(this.gameObject);
 
+    //}
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("DeadLine"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void Update()
     {
         //スカラー倍(speed): ベクトルka(direction:単位ベクトル) speed * direction
         transform.Translate(direction * speed * Time.deltaTime); 
-        EnemyBulletBroken(limit_WallLeft);
+        //EnemyBulletBroken(limit_WallLeft);
         
     }
 }

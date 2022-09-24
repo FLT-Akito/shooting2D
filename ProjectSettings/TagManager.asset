@@ -16,6 +16,7 @@ TagManager:
   - Megahone
   - Stage
   - WipeoutItem
+  - DeadLine
   layers:
   - Default
   - TransparentFX

@@ -112,7 +112,7 @@ public class EnemyManger : MonoBehaviour
             groupJ.Entry(goenemyJ.GetComponent<EnemyController>());
         }
 
-        yield return new WaitForSeconds(9f);
+        yield return new WaitForSeconds(6f);
 
         for (int count = 0; count < prefabs_MaxCount; count++)
         {

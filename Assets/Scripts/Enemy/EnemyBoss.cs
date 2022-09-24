@@ -8,7 +8,7 @@ public class EnemyBoss : EnemyController
 {
    
     //public Item jewelry;
-    public GameObject jewelry;
+    //public GameObject jewelry;
     //private GameObject limit_WallLeft;
     private SpriteRenderer middleBossImageColor;
     private int repetition = 8; //反復回数（ダメージ、点滅演出）
@@ -16,19 +16,12 @@ public class EnemyBoss : EnemyController
     [SerializeField] [Range(-1.0f, 1.0f)] private float period = 0.4f;
 
    
-    protected override void initiarise()
+    protected override void initialize()
     {
        // limit_WallLeft = GameObject.Find("WallLeft");
         middleBossImageColor = GetComponent<SpriteRenderer>();
-
-
+        Attack_Triger = false;
     }
-
-    protected override void OnUpdate()
-    {
-        EnemyDestroy();
-    }
-    
 
     protected override void DamageColor()
     {
@@ -40,12 +33,11 @@ public class EnemyBoss : EnemyController
     }
 
 
-    protected override void PopItem()
-    {
-        //jewelry.JemApear(this.gameObject);
-        Instantiate(jewelry, transform.position, Quaternion.identity);
-    }
+    //protected override void PopItem()
+    //{
+    //    //jewelry.JemApear(this.gameObject);
+    //    Instantiate(jewelry, transform.position, Quaternion.identity);
+    //}
 
-    protected override void Move() { }
-    protected override void OnAttack() { }
+    
 }

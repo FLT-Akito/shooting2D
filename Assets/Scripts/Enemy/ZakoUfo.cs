@@ -13,31 +13,31 @@ public class ZakoUfo : EnemyController
     float speed = 1.5f;
    // bool isApear = true;
 
-    protected override void PopItem()
-    {
-        Instantiate(createItem, transform.position, Quaternion.identity);
-    }
+    //protected override void PopItem()
+    //{
+    //    Instantiate(createItem, transform.position, Quaternion.identity);
+    //}
 
 
-    protected override void OnUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
+    //protected override void OnUpdate()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.A))
+    //    {
 
-            for (int i = 1; i <= 7; i++)
-            {
-                ufo = Instantiate(zakoUfo, transform.position, Quaternion.identity).GetComponent<ZakoUfo>();
+    //        for (int i = 1; i <= 7; i++)
+    //        {
+    //            ufo = Instantiate(zakoUfo, transform.position, Quaternion.identity).GetComponent<ZakoUfo>();
 
-            }
+    //        }
 
-        }
-        if (ufo != null)
-        {
+    //    }
+    //    if (ufo != null)
+    //    {
 
-            MoveSinWave();
+    //        MoveSinWave();
            
-        }
-    }
+    //    }
+    //}
 
     void MoveSinWave()
     {

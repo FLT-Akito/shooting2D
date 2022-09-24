@@ -15,7 +15,8 @@ public abstract class EnemyController : MonoBehaviour
 
     public GameObject explosion;
     public GameObject enemyBulletPref;
-    private GameObject wallLeft;
+    public GameObject popItemPref;
+    //private GameObject wallLeft;
     private GameObject playerShip;
 
     //基底クラス(継承)
@@ -29,25 +30,18 @@ public abstract class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        wallLeft = GameObject.Find("WallLeft");
+        //wallLeft = GameObject.Find("WallLeft");
         playerShip = GameObject.Find("playerShip");
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        initiarise();
+        initialize();
 
     }
 
-    private void Update()
-    {
-        Move();
-        OnAttack();
-        OnUpdate();
-    }
-
-    protected virtual void Move()
-    {
-        gameObject.transform.position += new Vector3(Speed * Time.deltaTime, 0, 0);
-        EnemyDestroy();
-    }
+    //protected virtual void Move()
+    //{
+    //    gameObject.transform.position += new Vector3(Speed * Time.deltaTime, 0, 0);
+    //    //EnemyDestroy();
+    //}
 
     //敵がやられたら爆発する
     private void EnemyExplosion()
@@ -59,18 +53,19 @@ public abstract class EnemyController : MonoBehaviour
     {
         BulletBase bullet = Instantiate(shotPrefab, this.transform.position, Quaternion.identity).GetComponent<BulletBase>();
         bullet.Init(5f, _direction);
-    }
-
-    //デッドラインを越えると自然消滅する
-    protected void EnemyDestroy()
-    {
-        if (this.transform.position.x < wallLeft.transform.position.x)
-        {
-            Destroy(this.gameObject);
-
-        }
 
     }
+
+
+    //protected void EnemyDestroy()
+    //{
+    //    if (this.transform.position.x < wallLeft.transform.position.x)
+    //    {
+    //        Destroy(this.gameObject);
+
+    //    }
+
+    //}
 
     public float Distance(Vector3 playerShip, Vector3 enemyShip)
     {
@@ -84,7 +79,7 @@ public abstract class EnemyController : MonoBehaviour
 
     protected void Attack()
     {
-        if(Attack_Triger)
+        if (Attack_Triger)
         {
             if (playerShip != null)
             {
@@ -97,16 +92,21 @@ public abstract class EnemyController : MonoBehaviour
                 }
             }
         }
-       
+
     }
 
-    protected virtual void OnAttack()
-    {
-        Attack();
-    }
+    //protected virtual void OnAttack()
+    //{
+    //    Attack();
+    //}
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        //デッドラインを越えると自然消滅する
+        if (collision.gameObject.CompareTag("DeadLine"))
+        {
+            Destroy(this.gameObject);
+        }
         if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Megahone"))
         {
             DamageColor();
@@ -136,13 +136,17 @@ public abstract class EnemyController : MonoBehaviour
         }
     }
 
-    protected virtual void PopItem() { }
+    private void PopItem()
+    {
+        Instantiate(popItemPref, transform.position, Quaternion.identity);
+    }
 
-    protected virtual void initiarise() { }
+    protected virtual void Move() { }
+
+    protected virtual void initialize() { }
 
     protected virtual void DamageColor() { }
-
-    protected virtual void OnUpdate() { }
+    //protected virtual void OnUpdate() { }
 
     public void SetEnemyGroup(EnemyGroup group)
     {

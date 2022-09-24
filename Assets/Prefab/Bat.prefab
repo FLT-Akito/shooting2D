@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9036730187039651487}
   - component: {fileID: 9036730187039651486}
   - component: {fileID: 6417436567530531508}
-  - component: {fileID: 5187283915432658992}
+  - component: {fileID: -6790162322817239448}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -120,7 +120,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &5187283915432658992
+--- !u!114 &-6790162322817239448
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,5 +136,5 @@ MonoBehaviour:
   hp: 1
   explosion: {fileID: 7115207030335421265, guid: 3f42c596a34d2e74fa33b12e3ac13a8c, type: 3}
   enemyBulletPref: {fileID: 3846711976263606798, guid: e125ac507af71bd418db82b22076b6c4, type: 3}
-  createItem: {fileID: 5535080867988434, guid: 5d79f4d91944e294a8955d7eae066cf5, type: 3}
+  popItemPref: {fileID: 0}
   atkTime: 2

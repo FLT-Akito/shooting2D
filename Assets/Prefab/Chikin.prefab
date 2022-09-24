@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8991462421887571822}
   - component: {fileID: 8991462421887571823}
   - component: {fileID: 7711279642987736431}
+  - component: {fileID: 1374135376332605628}
   m_Layer: 0
   m_Name: Chikin
   m_TagString: Untagged
@@ -119,3 +120,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1374135376332605628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8991462421887571816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd251db770648342b491d9d0be3e275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 100
+  hp: 1
+  explosion: {fileID: 7115207030335421265, guid: 3f42c596a34d2e74fa33b12e3ac13a8c, type: 3}
+  enemyBulletPref: {fileID: 3846711976263606798, guid: e125ac507af71bd418db82b22076b6c4, type: 3}
+  popItemPref: {fileID: 0}
+  atkTime: 15

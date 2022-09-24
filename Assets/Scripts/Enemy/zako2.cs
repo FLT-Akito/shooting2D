@@ -9,20 +9,29 @@ namespace Enemyzako2
     public class zako2 : EnemyController
     {
        
-        public GameObject createItem;  
+        //public GameObject createItem;  
         float fangle = (Mathf.PI) / 4;
         Vector2 direction;
 
-        protected override void initiarise()
+        protected override void initialize()
         {
  
             StartCoroutine(StartCoru());
         }
 
-        protected override void PopItem()
+        private void Update()
         {
-            Instantiate(createItem, transform.position, Quaternion.identity);
+            if (this.gameObject != null)
+            {
+                Attack();
+       
+            }
+           
         }
+        //protected override void PopItem()
+        //{
+        //    Instantiate(createItem, transform.position, Quaternion.identity);
+        //}
 
         //protected override void OnUpdate()
         //{
@@ -43,17 +52,24 @@ namespace Enemyzako2
 
             while (this.gameObject != null)
             {
-                yield return StartCoroutine(MoveUp(ExcustionTime));
-                yield return StartCoroutine(MoveDown(ExcustionTime));
+                yield return StartCoroutine(MoveUp(ExcustionTime,true));
+                yield return StartCoroutine(MoveUp(ExcustionTime,false));
             }
         }
 
-        IEnumerator MoveUp(float sec)
+        IEnumerator MoveUp(float sec, bool flag)
         {
             var timer = sec;
+            float dir = 1f;
+
+            if(!flag)
+            {
+                dir = -1f;
+            }
+
             while (timer > 0)
             {
-                ZakoMoving(fangle * 3f);
+                ZakoMoving(dir * fangle * 3f);
                 timer -= Time.deltaTime;
                 yield return null;
                
@@ -66,7 +82,7 @@ namespace Enemyzako2
             var timer = sec;
             while (timer > 0)
             {
-                ZakoMoving(-fangle * 3f);
+                ZakoMoving(-1f*fangle * 3f);
                 timer -= Time.deltaTime;
                 yield return null;
             }

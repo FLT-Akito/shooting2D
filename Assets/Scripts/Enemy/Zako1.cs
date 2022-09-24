@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Enemyzako1
+public class Zako1 : EnemyController
 {
-
-    public class Zako1 : EnemyController
+    private void Update()
     {
-        public GameObject creatItem;
-
-        protected override void PopItem()
-        {
-
-            Instantiate(creatItem, transform.position, Quaternion.identity);
+        if (this.gameObject != null)
+        {       
+            Move();
+            Attack();
         }
+    
     }
+
+    private void Move()
+    {
+        gameObject.transform.position += new Vector3(Speed * Time.deltaTime, 0, 0);
+    }
+
 }
+
