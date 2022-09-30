@@ -11,8 +11,10 @@ public class PlayerController : MonoBehaviour
     private float speedUpRate = 1.0f;
     private bool isSpeedUp = true;
     private bool isGigant = false;
+    //private bool isKeyDown = true;
     private const float maxSpeed = 10f;
     private const int maxOptions = 4;
+    private EnemyController enemys;
     private WeaponBase weaponMain;
     private WeaponBase weaponSub;
     private WeaponBase weaponMainTemp;
@@ -103,8 +105,9 @@ public class PlayerController : MonoBehaviour
         //Player: パワーアップ処理
         if (Input.GetKeyDown(KeyCode.F1))
         {
+            
             POWERUPTYPE poweruptype;
-
+           
             if (gameManager.WeaponItemCount(out poweruptype))
             {
                 PlayerPowerUp(poweruptype);
@@ -317,7 +320,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case JEWELRYCOLORTYPE.RUBY:　　//スコアアップ
-                gameManager.AddScore(1000);
+                gameManager.AddScore(1500);
                 break;
         }
     }
@@ -353,10 +356,16 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        if (collision.gameObject.CompareTag("Pwitem"))
+        if (collision.gameObject.CompareTag("RedCupsel"))
         {
             Destroy(collision.gameObject);
             gameManager.SetItems();
+        }
+
+        if (collision.gameObject.CompareTag("BlueCupsel"))
+        {
+            Destroy(collision.gameObject);
+
         }
 
         if (collision.gameObject.CompareTag("Jewelry"))
@@ -367,6 +376,24 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);          
         }
     }
+
+//    private void OnWillRenderObject()
+//    {
+
+//#if UNITY_EDITOR
+
+//        if (Camera.current.name != "SceneCamera" && Camera.current.name != "Preview Camera")
+
+//#endif
+//        {
+//            EnemyController enemy = EnemyController.gameObject.GetComponent<EnemyController>();
+//            List<GameObject> ene = new List<GameObject>();
+//            ene.Add(enemy.gameObject);
+//        }
+//    }
+
+
+
 
     private void RetrayPress()
     {

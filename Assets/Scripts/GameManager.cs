@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
 {
     public GameObject gameOverText;
     public GameObject retryButton;
+    public GameObject lifeUI;
+   // public GameObject playerUI;
+    public Stack<GameObject> playerUIobj;
     public Text playerLife;
     public Text ScoreText;
     public Text MissileText;
@@ -29,14 +32,19 @@ public class GameManager : MonoBehaviour
     public Text OptionText;
     public Text OhText;
     public POWERUPTYPE[] poweruplist;
-    int score = 0;
+    public int score = 0;
     int itemCount = 0;
+    int oneUpScore = 25000;
+    int oneUpCount = 1;
+    int maxOneup = 10;
+    Vector3 pUIobj;
     Dictionary<POWERUPTYPE, Text> weaponText;
     GameObject[] items;
     GameObject[] itemsData;
     GameObject ob;
     SpriteRenderer sr;
-    
+    //private bool isWeaponTextErace;
+    //public bool IsEraceText => isWeaponTextErace;
 
     void Start()
     {
@@ -49,10 +57,13 @@ public class GameManager : MonoBehaviour
             [POWERUPTYPE.OPTION] = OptionText,
             [POWERUPTYPE.LASER] = LaserText
         };
+
        items = GameObject.FindGameObjectsWithTag("Item");
        itemsData = new GameObject[items.Length];
        gameOverText.SetActive(false);
-        
+
+        pUIobj = lifeUI.transform.position;
+        pUIobj.x += 63f;
     }
 
     public void GameOver()
@@ -68,19 +79,33 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int _score)
     {
-
         score += _score;
         ScoreText.text = "SCORE:" + this.score;
+        if(score == oneUpScore)
+        {
+            oneUpScore += 25000;
+            oneUpCount++;
+
+            if(oneUpCount != maxOneup)
+            {
+                Debug.Log("aaa");
+                //GameObject uiobj =
+                Instantiate(lifeUI, transform.position = new Vector3(-735f,400f,0), Quaternion.identity);
+                //pUIobj = uiobj.transform.position;
+                //pUIobj.x += 63f;
+                //playerUIobj.Push(uiobj);
+            }
+        }
     }
 
     public void WeaponTextErace( POWERUPTYPE powerupType)
     {
+        
         if(weaponText[powerupType].text != null)
         {
-            weaponText[powerupType].text = "";
-            
+            weaponText[powerupType].text = "";           
         }
-        
+       
     }
 
     public void ResetText()

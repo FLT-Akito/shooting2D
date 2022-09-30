@@ -9,14 +9,14 @@ TagManager:
   - Enemy2
   - EnemyBullet
   - Jewelry
-  - Pwitem
   - Item
   - Tree
   - BossEria
   - Megahone
   - Stage
-  - WipeoutItem
   - DeadLine
+  - RedCupsel
+  - BlueCupsel
   layers:
   - Default
   - TransparentFX

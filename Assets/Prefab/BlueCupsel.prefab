@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6390329605459973292}
   m_Layer: 0
   m_Name: BlueCupsel
-  m_TagString: WipeoutItem
+  m_TagString: BlueCupsel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

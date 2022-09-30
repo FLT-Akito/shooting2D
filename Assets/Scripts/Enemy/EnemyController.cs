@@ -136,6 +136,35 @@ public abstract class EnemyController : MonoBehaviour
         }
     }
 
+    private void OnWillRenderObject()
+    {
+
+#if UNITY_EDITOR
+
+        if (Camera.current.name != "SceneCamera" && Camera.current.name != "Preview Camera")
+
+#endif
+        {
+            //EnemyController enemy = this.gameObject.GetComponent<EnemyController>();
+            //List<GameObject> ene = new List<GameObject>();
+            //ene.Add(this.gameObject);
+           
+            //if (ene != null)
+            //{
+              
+            //        foreach (GameObject obj in ene)
+            //        {
+            //            Debug.Log(obj);
+            //            Destroy(this.gameObject);
+            //        }
+            //        ene.Clear();
+                
+            //}
+        }
+    }
+
+
+
     private void PopItem()
     {
         Instantiate(popItemPref, transform.position, Quaternion.identity);
