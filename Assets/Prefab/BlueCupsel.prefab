@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2818947409998197071}
   - component: {fileID: 4906918241569485347}
   - component: {fileID: 1535341005377217735}
-  - component: {fileID: -6390329605459973292}
+  - component: {fileID: -2107062040348098539}
   m_Layer: 0
   m_Name: BlueCupsel
   m_TagString: BlueCupsel
@@ -100,7 +100,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.12}
   serializedVersion: 2
   m_Radius: 0.73
---- !u!114 &-6390329605459973292
+--- !u!114 &-2107062040348098539
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,6 +109,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 104734817111113258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f442ebce743d544c96d6746dc5bf19e, type: 3}
+  m_Script: {fileID: 11500000, guid: a8e0c21266278d34bbfda4ed0df8174d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

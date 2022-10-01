@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverText;
     public GameObject retryButton;
     public GameObject lifeUI;
+    public GameObject canvas;
    // public GameObject playerUI;
     public Stack<GameObject> playerUIobj;
     public Text playerLife;
@@ -62,8 +63,14 @@ public class GameManager : MonoBehaviour
        itemsData = new GameObject[items.Length];
        gameOverText.SetActive(false);
 
-        pUIobj = lifeUI.transform.position;
+        //Debug.Log(lifeUI.transform.position);
+
+        Transform tf = canvas.transform;
+        pUIobj = tf.position;
         pUIobj.x += 63f;
+        tf.position = pUIobj;
+       GameObject obj = Instantiate(lifeUI, tf, true);
+        //Debug.Log(obj.transform.position);
     }
 
     public void GameOver()
@@ -88,8 +95,7 @@ public class GameManager : MonoBehaviour
 
             if(oneUpCount != maxOneup)
             {
-                Debug.Log("aaa");
-                //GameObject uiobj =
+               
                 Instantiate(lifeUI, transform.position = new Vector3(-735f,400f,0), Quaternion.identity);
                 //pUIobj = uiobj.transform.position;
                 //pUIobj.x += 63f;

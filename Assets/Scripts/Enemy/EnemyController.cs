@@ -25,7 +25,7 @@ public abstract class EnemyController : MonoBehaviour
     public float Player_r2 { get; private set; } = 3.0f;   //playerÇÃíÜêSç¿ïW 
     public float ExcustionTime { get; set; } = 0.7f;
     public bool Attack_Triger { get; set; } = true;
-
+    private bool cameraVeiw;
     protected UnityEvent attackEvent = new UnityEvent();
 
     private void Start()
@@ -109,30 +109,42 @@ public abstract class EnemyController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Megahone"))
         {
-            DamageColor();
-            hp -= 1;
 
-            if (hp <= 0)
+            TakeDamage(1);
+          
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        DamageColor();
+        hp -= damage;
+
+        if (hp <= 0)
+        {
+            Eliminated();
+
+        }
+    }
+
+    public void Eliminated()
+    {
+        Destroy(gameObject);
+        EnemyExplosion();
+        gameManager.AddScore(score);
+
+        if (enemyGroup != null)
+        {
+            if (enemyGroup.Dead(this))
             {
-                Destroy(gameObject);
-                EnemyExplosion();
-                gameManager.AddScore(score);
-
-                if (enemyGroup != null)
-                {
-                    if (enemyGroup.Dead(this))
-                    {
-                        PopItem();
-
-                    }
-                }
-                else
-                {
-                    PopItem();
-
-                }
+                PopItem();
 
             }
+        }
+        else
+        {
+            PopItem();
+
         }
     }
 
@@ -148,22 +160,31 @@ public abstract class EnemyController : MonoBehaviour
             //EnemyController enemy = this.gameObject.GetComponent<EnemyController>();
             //List<GameObject> ene = new List<GameObject>();
             //ene.Add(this.gameObject);
-           
+
             //if (ene != null)
             //{
-              
+
             //        foreach (GameObject obj in ene)
             //        {
             //            Debug.Log(obj);
             //            Destroy(this.gameObject);
             //        }
             //        ene.Clear();
-                
+
             //}
+            cameraVeiw = true;
         }
     }
 
-
+    public bool IsCameraVeiw()
+    {
+       
+        if(cameraVeiw)
+        {
+            return true;
+        }
+        return false;
+    }
 
     private void PopItem()
     {
