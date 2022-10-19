@@ -17,12 +17,11 @@ public enum POWERUPTYPE
 
 public class GameManager : MonoBehaviour
 {
+    public GameData gameData;
     public GameObject gameOverText;
+    public GameObject returyText;
     public GameObject retryButton;
-    public GameObject lifeUI;
-    public GameObject canvas;
-   // public GameObject playerUI;
-    public Stack<GameObject> playerUIobj;
+    public GameObject lifeUIpref;
     public Text playerLife;
     public Text ScoreText;
     public Text MissileText;
@@ -35,18 +34,22 @@ public class GameManager : MonoBehaviour
     public POWERUPTYPE[] poweruplist;
     public int score = 0;
     int itemCount = 0;
-    int oneUpScore = 25000;
-    int oneUpCount = 1;
-    int maxOneup = 10;
-    Vector3 pUIobj;
+    int lifeUpScore = 25000;
+   public int lifeCount = 1;  
+   public int maxLifeup = 6;
     Dictionary<POWERUPTYPE, Text> weaponText;
     GameObject[] items;
     GameObject[] itemsData;
-    GameObject ob;
-    SpriteRenderer sr;
+   public GameObject lifeUILayout;
+    GameObject obj;
+   [SerializeField] Stack<GameObject> lifeUIList = new Stack<GameObject>();
+    private bool deadFlag;
+    public bool DeadFlag { get => deadFlag; }
     //private bool isWeaponTextErace;
     //public bool IsEraceText => isWeaponTextErace;
 
+    //LayoutGroup使い方調べる
+   
     void Start()
     {
         weaponText = new Dictionary<POWERUPTYPE, Text>()
@@ -59,59 +62,193 @@ public class GameManager : MonoBehaviour
             [POWERUPTYPE.LASER] = LaserText
         };
 
-       items = GameObject.FindGameObjectsWithTag("Item");
-       itemsData = new GameObject[items.Length];
-       gameOverText.SetActive(false);
+        items = GameObject.FindGameObjectsWithTag("Item");
+        itemsData = new GameObject[items.Length];
+        gameOverText.SetActive(false);
+        //PlayerPrefs.DeleteAll();
+        //GameObject lifeuiobj = ;
+        //StartLifeUI(2);
+        lifeCount = 2;
+        ShowLife(lifeCount);
+        
+    }
 
-        //Debug.Log(lifeUI.transform.position);
+    //private void StartLifeUI(int value)
+    //{
+    //    for(int i = 0; i < value; i++)
+    //    {
+    //        lifeUIList.Push(Instantiate(lifeUIpref));
+           
+    //    }
 
-        Transform tf = canvas.transform;
-        pUIobj = tf.position;
-        pUIobj.x += 63f;
-        tf.position = pUIobj;
-       GameObject obj = Instantiate(lifeUI, tf, true);
-        //Debug.Log(obj.transform.position);
+    //    foreach(GameObject obj in lifeUIList)
+    //    {          
+            
+    //        obj.transform.SetParent(lifeUILayout.transform);
+    //    }
+    //}
+    
+    private void Update()
+    {
+        //デバッグ：基底スコア時残存機増加（最大7機）
+        if(Input.GetKeyDown(KeyCode.F3))
+        {
+            //AddScore(lifeUpScore);
+            lifeCount++;          
+            ShowLife(lifeCount);
+            //if (score >= lifeUpScore && lifeUIList.Count < maxLifeup)
+            //{
+            //    GameObject uiobj = Instantiate(lifeUIpref);
+            //    lifeUIList.Push(uiobj);             
+            //    uiobj.transform.SetParent(lifeUILayout.transform);
+                
+            //}
+            //if(lifeCount > maxLifeup - 1)
+            //{
+            //    lifeCount = maxLifeup - 1;
+               
+            //}
+        }
+
+        //デバッグ：残存機減少
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            lifeCount--;
+
+            //foreach (GameObject obj in lifeUIList)
+            //{
+            //    var popLifeUI = lifeUIList.Pop();
+            //    Destroy(popLifeUI);
+                
+            //}
+            if(lifeCount <= 0)
+            {
+                lifeCount = 0;
+            }
+            ShowLife(lifeCount);
+        }
+
+        if(Input.GetKeyDown(KeyCode.F5))
+        {
+            lifeCount = 4;
+            ShowLife(lifeCount);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            ShowLife(5);
+        }
+
+    }
+
+    private void ShowLife(int life)
+    {
+        int loopCount = lifeUIList.Count;
+
+        for (int i = 0; i < loopCount; i++)
+        {
+            var popLifeUI = lifeUIList.Pop();
+            Destroy(popLifeUI);
+            //Debug.Log($"Destroy:{i}");
+        }
+
+        for (int i = 0; i < life; i++)
+        {
+            GameObject obj = Instantiate(lifeUIpref);
+            lifeUIList.Push(obj);
+            obj.transform.SetParent(lifeUILayout.transform);
+        }     
     }
 
     public void GameOver()
     {
-        gameOverText.SetActive(true);
+        if (lifeCount <= 0)
+        {
+            gameOverText.SetActive(true);
+            System.Threading.Thread.Sleep(2000);
+            SceneManager.LoadScene("TitleScene");
+        }
+    }
+
+    public void Retry()
+    {
+        returyText.SetActive(true);
+        lifeCount--;
+
+        if (lifeCount <= 0)
+        {
+            lifeCount = 0;
+        }
+
+        ShowLife(lifeCount);
     }
 
     public void OnPressRetryButton()
     {
-        SceneManager.LoadScene("Stage1");
-        
+       
+        SceneManager.LoadScene("Stage1");       
     }
 
     public void AddScore(int _score)
     {
         score += _score;
         ScoreText.text = "SCORE:" + this.score;
-        if(score == oneUpScore)
-        {
-            oneUpScore += 25000;
-            oneUpCount++;
 
-            if(oneUpCount != maxOneup)
-            {
-               
-                Instantiate(lifeUI, transform.position = new Vector3(-735f,400f,0), Quaternion.identity);
-                //pUIobj = uiobj.transform.position;
-                //pUIobj.x += 63f;
-                //playerUIobj.Push(uiobj);
-            }
+        if (score >= lifeUpScore)
+        {
+            AddLifeUI();
         }
     }
 
-    public void WeaponTextErace( POWERUPTYPE powerupType)
-    {
-        
-        if(weaponText[powerupType].text != null)
-        {
-            weaponText[powerupType].text = "";           
+    private void AddLifeUI()
+    {      
+        lifeUpScore += lifeUpScore;
+        //Debug.Log($"lifeCount:{lifeCount},lifeUIList:{lifeUIList.Count}");
+        if (lifeCount < maxLifeup)
+        {          
+                lifeCount++;
+                ShowLife(lifeCount);
         }
-       
+        else
+        {
+            lifeCount = maxLifeup;
+        }
+        //lifeUpScore += lifeUpScore;
+        //lifeUpIndex++;
+
+        //if (lifeUpIndex < maxLifeup)
+        //{
+        //    //lifeUI[lifeUpIndex].SetActive(true);
+
+        //}
+        //else
+        //{
+        //    lifeUpIndex = maxLifeup - 1;
+        //}
+
+        //if (count < maxLifeup)
+        //{
+        //    GameObject uiobj = Instantiate(lifeUIpref);
+        //    lifeUIList.Push(uiobj);
+        //    uiobj.SetActive(true);
+        //    uiobj.transform.SetParent(lifeUILayout.transform);
+        //}
+        //if (count > maxLifeup)
+        //{
+        //    count = maxLifeup;
+        //    Debug.Log(count);
+        //}
+
+    }
+
+    public void WeaponTextErace(POWERUPTYPE powerupType)
+    {
+
+        if (weaponText[powerupType].text != null)
+        {
+            weaponText[powerupType].text = "";
+        }
+
     }
 
     public void ResetText()
@@ -132,42 +269,60 @@ public class GameManager : MonoBehaviour
         {
             itemCount = 1;
         }
-    
+
         SetUpItem(itemCount);
     }
 
     public void SetUpItem(int itemIndex)
     {
-        
-        for(int i = 1; i < itemsData.Length+1; i++)
+
+        for (int i = 1; i < itemsData.Length + 1; i++)
         {
-            
-            var sr = items[i-1].GetComponent<Image>();
-             if(i == itemIndex)
+
+            var sr = items[i - 1].GetComponent<Image>();
+            if (i == itemIndex)
             {
                 sr.color = Color.green;
             }
-             else
+            else
             {
                 sr.color = Color.white;
             }
         }
-        
+
     }
 
     public bool WeaponItemCount(out POWERUPTYPE poweruptype)
     {
         poweruptype = POWERUPTYPE.SPEED;
-        if(itemCount > 0)
+        if (itemCount > 0)
         {
-           // Debug.Log(poweruplist[itemCount - 1]);
+            // Debug.Log(poweruplist[itemCount - 1]);
             poweruptype = poweruplist[itemCount - 1];
             itemCount = 0;
             SetUpItem(itemCount);
             return true;
         }
         return false;
-       
+
     }
+
+    //private void LoadGameData()
+    //{
+    //    //score = gameData.score;
+    //    //lifeUpIndex = gameData.lifeUpIndex;
+    //    PlayerPrefs.GetInt("Score");
+    //    PlayerPrefs.GetInt("lifeUpindex");
+    //}
+
+    //private void SaveGamdeData()
+    //{
+    //    //gameData.score = score;
+    //    //gameData.lifeUpIndex = lifeUpIndex;
+    //    PlayerPrefs.SetInt("Score", score);
+    //    PlayerPrefs.SetInt("lifeUpindex", lifeUpIndex);
+    //    PlayerPrefs.Save();
+    //}
+
 
 }

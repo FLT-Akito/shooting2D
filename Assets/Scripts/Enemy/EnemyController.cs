@@ -25,7 +25,7 @@ public abstract class EnemyController : MonoBehaviour
     public float Player_r2 { get; private set; } = 3.0f;   //playerÇÃíÜêSç¿ïW 
     public float ExcustionTime { get; set; } = 0.7f;
     public bool Attack_Triger { get; set; } = true;
-    private bool cameraVeiw;
+    public bool cameraVeiw;
     protected UnityEvent attackEvent = new UnityEvent();
 
     private void Start()
@@ -111,7 +111,7 @@ public abstract class EnemyController : MonoBehaviour
         {
 
             TakeDamage(1);
-          
+
         }
     }
 
@@ -150,40 +150,40 @@ public abstract class EnemyController : MonoBehaviour
 
     private void OnWillRenderObject()
     {
+        //if (Camera.current.name != "SceneCamera" && Camera.current.name != "Preview Camera")
 
-#if UNITY_EDITOR
 
-        if (Camera.current.name != "SceneCamera" && Camera.current.name != "Preview Camera")
+        //{
 
-#endif
+        //    
+        //}
+
+        if(Camera.current.tag == "MainCamera")
         {
-            //EnemyController enemy = this.gameObject.GetComponent<EnemyController>();
-            //List<GameObject> ene = new List<GameObject>();
-            //ene.Add(this.gameObject);
-
-            //if (ene != null)
-            //{
-
-            //        foreach (GameObject obj in ene)
-            //        {
-            //            Debug.Log(obj);
-            //            Destroy(this.gameObject);
-            //        }
-            //        ene.Clear();
-
-            //}
             cameraVeiw = true;
         }
     }
 
+    private void OnBecameInvisible()
+    {
+        cameraVeiw = false;
+    }
+
+    //private void OnBecameVisible()
+    //{
+    //    cameraVeiw = true;
+    //    //Debug.Log(Camera.current.name);
+    //}
+
     public bool IsCameraVeiw()
     {
-       
-        if(cameraVeiw)
-        {
-            return true;
-        }
-        return false;
+
+        return cameraVeiw;
+        //if(cameraView)
+        //{
+        //    return true;
+        //}
+        //return false;
     }
 
     private void PopItem()

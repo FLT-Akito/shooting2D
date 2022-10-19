@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     //private bool isKeyDown = true;
     private const float maxSpeed = 10f;
     private const int maxOptions = 4;
-    private EnemyController enemys;
+    //private EnemyController enemys;
     private WeaponBase weaponMain;
     private WeaponBase weaponSub;
     private WeaponBase weaponMainTemp;
@@ -310,9 +310,7 @@ public class PlayerController : MonoBehaviour
                         circle.enabled = true;
                     });
                    
-                });
-               
-               
+                });      
                 break;
 
             case JEWELRYCOLORTYPE.GARMET:   //âÊñ ì‡Ç…Ç¢ÇÈìGÇîjâÛÇ∑ÇÈÉAÉCÉeÉÄç≈ëÂêîÇP
@@ -345,10 +343,16 @@ public class PlayerController : MonoBehaviour
             else
             {
                 Destroy(this.gameObject);
-                gameManager.GameOver();
+                gameManager.Retry();
+
+                 if(gameManager.DeadFlag)
+                {
+                    //gameManager.GameOver();
+                }
             }
             
             Instantiate(Hit, hitPoint, transform.rotation);
+
             if(!collision.gameObject.CompareTag("Stage"))
             {
                 Destroy(collision.gameObject);
@@ -356,14 +360,16 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        if (collision.gameObject.CompareTag("RedCupsel"))
+        if (collision.gameObject.CompareTag("RedCupsule"))
         {
             Destroy(collision.gameObject);
             gameManager.SetItems();
         }
 
-        if (collision.gameObject.CompareTag("BlueCupsel"))
+        if (collision.gameObject.CompareTag("BlueCupsule"))
         {
+            BlueCupsule blCupsule = collision.gameObject.GetComponent<BlueCupsule>();
+            blCupsule.ExsiBlueCupsule();
             Destroy(collision.gameObject);
 
         }

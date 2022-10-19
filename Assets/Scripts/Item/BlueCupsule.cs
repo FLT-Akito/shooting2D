@@ -5,19 +5,7 @@ using UnityEngine;
 public class BlueCupsule : MonoBehaviour
 {
 
-    private void TestDisplay()
-    {
-        GameObject[] gameObjects = FindObjectsOfType(typeof(GameObject)) as GameObject[];
-        //Debug.Log("BlueCupsuleDestroy");
-        Debug.Log(gameObjects);
-        foreach (GameObject obj in gameObjects)
-        {
-          
-         
-            
-        }
-    }
-    private void OnDestroy()
+    public void ExsiBlueCupsule()
     {
         //TestDisplay();
         GameObject[] gameObjects = FindObjectsOfType(typeof(GameObject)) as GameObject[];
@@ -35,4 +23,6 @@ public class BlueCupsule : MonoBehaviour
             }
         }
     }
+
+    
 }

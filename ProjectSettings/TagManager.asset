@@ -15,8 +15,9 @@ TagManager:
   - Megahone
   - Stage
   - DeadLine
+  - BlueCupsule
+  - RedCupsule
   - RedCupsel
-  - BlueCupsel
   layers:
   - Default
   - TransparentFX
