@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using DG.Tweening;
-using UnityEngine.Events;
+
 
 public class PlayerController : MonoBehaviour
 {
+    public UIController uiController;
     private float speed = 5.0f;
     private float speedUpRate = 1.0f;
     private bool isSpeedUp = true;
     private bool isGigant = false;
-    //private bool isKeyDown = true;
+    private bool isRoulette = false;
+    public float rouletteSpeed;
     private const float maxSpeed = 10f;
     private const int maxOptions = 4;
-    //private EnemyController enemys;
     private WeaponBase weaponMain;
     private WeaponBase weaponSub;
     private WeaponBase weaponMainTemp;
@@ -31,12 +32,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] WeaponLaser weaponLaser;
     [SerializeField] WeaponNormal weaponNomal;
     [SerializeField] WeaponMissile weaponMissile;
-    //[SerializeField] Transform OptionPosi;
-    //[SerializeField] Transform laserShot;
     [SerializeField] GameObject Hit;
     [SerializeField] GameObject option;
     [SerializeField] GameManager gameManager;
-    public WipeOut wipeOut;
     Rigidbody2D rigi;
     Animator animator;
     public string leftAnimator = "PlayerLeft Animation";
@@ -70,10 +68,10 @@ public class PlayerController : MonoBehaviour
         nowAnime = stopAnimator;
         weaponMain = weaponNomal; //通常弾はweaponNomal
         weaponSub = null;
-               
+
     }
 
-   
+
     void Update()
     {
         float x = Input.GetAxisRaw("Horizontal");
@@ -84,36 +82,36 @@ public class PlayerController : MonoBehaviour
             nowAnime = stopAnimator;
         }
 
-        float y = Input.GetAxisRaw("Vertical");　　
+        float y = Input.GetAxisRaw("Vertical");
 
         if (y == 0)
         {
-            direction = DIRECTION_TYPE.STOP;　　　　　
+            direction = DIRECTION_TYPE.STOP;
             nowAnime = stopAnimator;
         }
         if (y > 0)
         {
-            direction = DIRECTION_TYPE.LEFT;　　　　　
+            direction = DIRECTION_TYPE.LEFT;
             nowAnime = leftAnimator;
         }
         if (y < 0)
         {
-            direction = DIRECTION_TYPE.RIGHT;　　　　　
+            direction = DIRECTION_TYPE.RIGHT;
             nowAnime = rightAnimator;
         }
 
         //Player: パワーアップ処理
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            
-            POWERUPTYPE poweruptype;
            
-            if (gameManager.WeaponItemCount(out poweruptype))
+            POWERUPTYPE poweruptype;
+
+
+            if (uiController.WeaponItemCount(out poweruptype))
             {
+                isRoulette = false;
                 PlayerPowerUp(poweruptype);
-
             }
-
         }
 
         //アニメーションの切り替え
@@ -139,19 +137,19 @@ public class PlayerController : MonoBehaviour
         }
 
         //OptionはPlayerの過去の軌跡
-        if(this.transform.position != positionLast || (x!= 0f || y !=0f))
+        if (this.transform.position != positionLast || (x != 0f || y != 0f))
         {
-            for (int i = positionHistories.Length-1; i > 0; i--)
+            for (int i = positionHistories.Length - 1; i > 0; i--)
             {
-                positionHistories[i] = positionHistories[i-1];
+                positionHistories[i] = positionHistories[i - 1];
             }
-            
+
             positionHistories[0] = transform.position;
             positionLast = this.transform.position;
 
-            for(int i = 0; i < optionList.Count; i++)
+            for (int i = 0; i < optionList.Count; i++)
             {
-                optionList[i].transform.position = positionHistories[(i+1) * 100];
+                optionList[i].transform.position = positionHistories[(i + 1) * 100];
             }
         }
 
@@ -188,8 +186,14 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+
+        if (isRoulette)
+        {
+            //time += Time.deltaTime;
+            uiController.RouletteStart(isRoulette);
+        }
     }
-  
+
     private void FixedUpdate()
     {
         float x = Input.GetAxisRaw("Horizontal");
@@ -211,40 +215,40 @@ public class PlayerController : MonoBehaviour
                 if (PlayerSpeed >= maxSpeed)
                 {
                     isSpeedUp = false;
-                    gameManager.WeaponTextErace(powerupType);
+                    uiController.WeaponTextErace(powerupType);
 
                 }
                 break;
 
             case POWERUPTYPE.MISSILE:
                 weaponSub = weaponMissile;
-                gameManager.WeaponTextErace(powerupType);
+                uiController.WeaponTextErace(powerupType);
                 break;
 
             case POWERUPTYPE.DOUBLE:
                 weaponMain = weaponDouble;
-                gameManager.WeaponTextErace(powerupType);
+                uiController.WeaponTextErace(powerupType);
                 break;
 
             case POWERUPTYPE.LASER:
                 weaponMain = weaponLaser;
-                gameManager.WeaponTextErace(powerupType);
+                uiController.WeaponTextErace(powerupType);
                 break;
 
             case POWERUPTYPE.OPTION: //Playerの子として生成。最大4つ。
                 count++;
                 //var ofsetX = -1.0f;
-                if(option != null)
+                if (option != null)
                 {
                     if (count <= maxOptions)
                     {
                         GameObject op = Instantiate(option, this.transform.position, Quaternion.identity);
                         WeaponLaser laser = op.GetComponentInChildren<WeaponLaser>();
-                        laser.Player = op;                
-                        op.transform.SetParent(this.transform); 
+                        laser.Player = op;
+                        op.transform.SetParent(this.transform);
                         if (count == maxOptions)
                         {
-                            gameManager.WeaponTextErace(powerupType);
+                            uiController.WeaponTextErace(powerupType);
                         }
                         optionList.Add(op);
                     }
@@ -255,7 +259,7 @@ public class PlayerController : MonoBehaviour
                 weaponMain = weaponNomal;
                 weaponSub = null;
                 option = null;
-                gameManager.ResetText();
+                uiController.ResetText();
                 break;
 
             case POWERUPTYPE.F_FILED: //FILEDには耐久値を持たせる
@@ -268,10 +272,11 @@ public class PlayerController : MonoBehaviour
         switch (jewelryColorType)
         {
             case JEWELRYCOLORTYPE.TOPAZ:　　//スコアアップ(500点)
-                gameManager.AddScore(500);
+                uiController.AddScore(500);
                 break;
 
-            case JEWELRYCOLORTYPE.AMETHYST: //画面内の敵をすべて破壊
+            case JEWELRYCOLORTYPE.AMETHYST: //パワーアップUIの左からルーレット
+                isRoulette = true;
 
                 break;
 
@@ -287,7 +292,7 @@ public class PlayerController : MonoBehaviour
                     weaponMain = weaponMainTemp;
                     weaponSub = weaponSubTemp;
                 }));
-               
+
                 break;
 
             case JEWELRYCOLORTYPE.EMERALD:  //Playerが拡大；※弾は打てないが無敵になる
@@ -298,9 +303,9 @@ public class PlayerController : MonoBehaviour
                 isGigant = true;
                 circle.enabled = false;
                 polygon.enabled = true;
-                transform.DOScale(3f, 3f).SetEase(Ease.Linear).OnComplete(()=>
+                transform.DOScale(3f, 3f).SetEase(Ease.Linear).OnComplete(() =>
                 {
-                     
+
                     transform.DOScale(1f, 3f).SetDelay(7f).SetEase(Ease.Linear).OnComplete(() =>
                     {
                         weaponMain = weaponMainTemp;
@@ -309,8 +314,8 @@ public class PlayerController : MonoBehaviour
                         polygon.enabled = false;
                         circle.enabled = true;
                     });
-                   
-                });      
+
+                });
                 break;
 
             case JEWELRYCOLORTYPE.GARMET:   //画面内にいる敵を破壊するアイテム最大数１
@@ -318,7 +323,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case JEWELRYCOLORTYPE.RUBY:　　//スコアアップ
-                gameManager.AddScore(1500);
+                uiController.AddScore(1500);
                 break;
         }
     }
@@ -332,38 +337,43 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet")||collision.gameObject.CompareTag("Stage"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet") || collision.gameObject.CompareTag("Stage"))
         {
             Vector2 hitPoint = transform.position;
             if (isGigant)
             {
                 hitPoint = collision.transform.position;
-                
+
             }
             else
             {
                 Destroy(this.gameObject);
-                gameManager.Retry();
+                LifeCountManager.lifeCount--;
 
-                 if(gameManager.DeadFlag)
+                if (LifeCountManager.lifeCount <= 0)
                 {
-                    //gameManager.GameOver();
+                    gameManager.GameOverText();
                 }
+                else
+                {
+                    gameManager.RetryText();
+                }
+
             }
-            
+
             Instantiate(Hit, hitPoint, transform.rotation);
 
-            if(!collision.gameObject.CompareTag("Stage"))
+            if (!collision.gameObject.CompareTag("Stage"))
             {
                 Destroy(collision.gameObject);
             }
-            
+
         }
 
         if (collision.gameObject.CompareTag("RedCupsule"))
         {
             Destroy(collision.gameObject);
-            gameManager.SetItems();
+            uiController.SetItems();
         }
 
         if (collision.gameObject.CompareTag("BlueCupsule"))
@@ -379,26 +389,9 @@ public class PlayerController : MonoBehaviour
             ItemJewelry jewelry = collision.gameObject.GetComponent<ItemJewelry>();
             JEWELRYCOLORTYPE jewelryColorType = jewelry.GetJewelryColorType();
             Jewerys(jewelryColorType);
-            Destroy(collision.gameObject);          
+            Destroy(collision.gameObject);
         }
     }
-
-//    private void OnWillRenderObject()
-//    {
-
-//#if UNITY_EDITOR
-
-//        if (Camera.current.name != "SceneCamera" && Camera.current.name != "Preview Camera")
-
-//#endif
-//        {
-//            EnemyController enemy = EnemyController.gameObject.GetComponent<EnemyController>();
-//            List<GameObject> ene = new List<GameObject>();
-//            ene.Add(enemy.gameObject);
-//        }
-//    }
-
-
 
 
     private void RetrayPress()
@@ -406,5 +399,5 @@ public class PlayerController : MonoBehaviour
         gameManager.OnPressRetryButton();
     }
 
-   
+
 }

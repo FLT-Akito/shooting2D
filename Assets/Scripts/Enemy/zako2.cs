@@ -77,16 +77,16 @@ namespace Enemyzako2
            
         }
 
-        IEnumerator MoveDown(float sec)
-        {
-            var timer = sec;
-            while (timer > 0)
-            {
-                ZakoMoving(-1f*fangle * 3f);
-                timer -= Time.deltaTime;
-                yield return null;
-            }
-        }
+        //IEnumerator MoveDown(float sec)
+        //{
+        //    var timer = sec;
+        //    while (timer > 0)
+        //    {
+        //        ZakoMoving(-1f*fangle * 3f);
+        //        timer -= Time.deltaTime;
+        //        yield return null;
+        //    }
+        //}
       
     }
 }

@@ -5,12 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/GameData")]
 public class GameData : ScriptableObject
 {
-    public int score = 0;
-    public int lifeUpIndex = 0;
+    public static int score;
+    public static int lifeUpCount = 2;
 
     public void InitData()
     {
         score = 0;
-        lifeUpIndex = 0;
+        lifeUpCount = 2;
+       
     }
 }

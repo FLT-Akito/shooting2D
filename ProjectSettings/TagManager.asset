@@ -18,6 +18,8 @@ TagManager:
   - BlueCupsule
   - RedCupsule
   - RedCupsel
+  - BlueCupsel
+  - PowerUpUI
   layers:
   - Default
   - TransparentFX

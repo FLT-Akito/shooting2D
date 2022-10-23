@@ -7,7 +7,8 @@ using DG.Tweening;
 public abstract class EnemyController : MonoBehaviour
 {
 
-    GameManager gameManager;
+    //GameManager gameManager;
+    UIController uiController;
     protected EnemyGroup enemyGroup;
     protected EnemyBoss enemyBoss;
     [SerializeField] protected int score = 100;
@@ -32,7 +33,7 @@ public abstract class EnemyController : MonoBehaviour
     {
         //wallLeft = GameObject.Find("WallLeft");
         playerShip = GameObject.Find("playerShip");
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        uiController = GameObject.Find("Canvas").GetComponent<UIController>();
         initialize();
 
     }
@@ -131,7 +132,7 @@ public abstract class EnemyController : MonoBehaviour
     {
         Destroy(gameObject);
         EnemyExplosion();
-        gameManager.AddScore(score);
+        uiController.AddScore(score);
 
         if (enemyGroup != null)
         {
