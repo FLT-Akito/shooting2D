@@ -5,46 +5,50 @@ using UnityEngine;
 
 public class Zako3 : EnemyController
 {
-    /*
-     * 問題点
-     * wallRightがgameobjectと一致したときに
-     * Move(),Attack()を呼びたいが、
-     * クラスごとに毎回WallRightとgameobjectの判定をしないといけないのが面倒。
-     * 毎回クールタイムの処理を書かないといけない
-     * 
-     * 対策
-     * 
-     */ 
-
-    Vector2 position;
-    Vector2 velocity = new Vector2(1f,0f);
+    private Vector2 position;
+    private Vector2 velocity = new Vector2(2.5f, 0f);
+    private float time;
     public float xPositionMax;
     public float xPositionMin;
+    public float atkInterval;
 
     protected override void initialize()
     {
         position = transform.position;
+        attackEvent.AddListener(() =>
+        {
+            time = 0f;
+        });
     }
 
     private void Update()
     {
-       
         Move();
+
+        if (IsCameraVeiw())
+        {
+            time += Time.deltaTime;
+
+            if (time > atkInterval)
+            {
+                Attack();
+            }
+        }
     }
 
     protected override void Move()
     {
-        
+
         position.x += velocity.x * Time.deltaTime;
 
-        if(position.x > xPositionMax)
+        if (position.x > xPositionMax)
         {
             position.x = xPositionMax;
             velocity.x = -velocity.x;
             transform.localScale = new Vector3(1f, 1f, 1f);
         }
 
-        if(position.x < xPositionMin)
+        if (position.x < xPositionMin)
         {
             position.x = xPositionMin;
             velocity.x = -velocity.x;

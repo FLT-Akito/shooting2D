@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemJewelry : Item
+public class ItemJewelry : Item,IWipedOut
 {
     public JEWELRYCOLORTYPE[] jewelryTypeList;
     private SpriteRenderer spriteRenderer;
@@ -55,6 +55,22 @@ public class ItemJewelry : Item
                 Destroy(playerBullet.gameObject);
             }
             
+        }
+    }
+
+    public void WipedOut()
+    {
+        GameObject[] gameObjects = FindObjectsOfType(typeof(GameObject)) as GameObject[];
+        foreach (GameObject obj in gameObjects)
+        {
+            EnemyController enemy = obj.GetComponent<EnemyController>();
+            if (enemy != null)
+            {
+                if (enemy.IsCameraVeiw())
+                {
+                    enemy.Eliminated();
+                }
+            }
         }
     }
 

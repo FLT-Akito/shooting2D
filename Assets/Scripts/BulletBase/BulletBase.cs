@@ -6,15 +6,7 @@ public class BulletBase : MonoBehaviour
 {
     protected float speed;
     protected Vector2 direction;
-    //GameObject limit_WallLeft;
-
-
-
-    private void Start()
-    {
-        //limit_WallLeft = GameObject.Find("WallLeft");
-    }
-
+    
     public void Init(Vector3 _position, float _speed, Vector2 _direction)
     {
         transform.position = _position;
@@ -28,15 +20,6 @@ public class BulletBase : MonoBehaviour
     {
         Init(transform.position, _speed, _direction);
     }
-
-    
-
-    //public void EnemyBulletBroken(GameObject wallLeft)
-    //{
-    //    if (this.gameObject.transform.position.x < wallLeft.transform.position.x)
-    //        Destroy(this.gameObject);
-
-    //}
 
     public void OnTriggerEnter2D(Collider2D collision)
     {

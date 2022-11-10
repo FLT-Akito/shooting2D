@@ -8,11 +8,13 @@ using DG.Tweening;
 public class PlayerController : MonoBehaviour
 {
     public UIController uiController;
+    private ItemJewelry jewelry;
     private float speed = 5.0f;
     private float speedUpRate = 1.0f;
     private bool isSpeedUp = true;
     private bool isGigant = false;
     private bool isRoulette = false;
+    private bool isWipedOut = false;
     public float rouletteSpeed;
     private const float maxSpeed = 10f;
     private const int maxOptions = 4;
@@ -74,6 +76,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        
         float x = Input.GetAxisRaw("Horizontal");
 
         if (x == 0)     　　　　　　　　　　　　// 水平方向の移動
@@ -102,16 +105,26 @@ public class PlayerController : MonoBehaviour
 
         //Player: パワーアップ処理
         if (Input.GetKeyDown(KeyCode.F1))
-        {
-           
+        {    
             POWERUPTYPE poweruptype;
-
-
             if (uiController.WeaponItemCount(out poweruptype))
             {
                 isRoulette = false;
                 PlayerPowerUp(poweruptype);
             }
+        }
+
+        //bomItem: 全滅処理
+        if(Input.GetKeyDown(KeyCode.F2))
+        {
+            if(isWipedOut)
+            {
+                bomItem.SetActive(false);
+                IWipedOut wipedOut = jewelry;
+                wipedOut.WipedOut();
+            }
+
+            isWipedOut = false;
         }
 
         //アニメーションの切り替え
@@ -275,7 +288,7 @@ public class PlayerController : MonoBehaviour
                 uiController.AddScore(500);
                 break;
 
-            case JEWELRYCOLORTYPE.AMETHYST: //パワーアップUIの左からルーレット
+            case JEWELRYCOLORTYPE.AMETHYST: //パワーアップUIのルーレット
                 isRoulette = true;
 
                 break;
@@ -320,6 +333,8 @@ public class PlayerController : MonoBehaviour
 
             case JEWELRYCOLORTYPE.GARMET:   //画面内にいる敵を破壊するアイテム最大数１
                 bomItem.SetActive(true);
+                isWipedOut = true;
+            
                 break;
 
             case JEWELRYCOLORTYPE.RUBY:　　//スコアアップ
@@ -378,15 +393,15 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("BlueCupsule"))
         {
-            BlueCupsule blCupsule = collision.gameObject.GetComponent<BlueCupsule>();
-            blCupsule.ExsiBlueCupsule();
+            IWipedOut wipedOut = collision.gameObject.GetComponent<IWipedOut>();
+            wipedOut.WipedOut();
             Destroy(collision.gameObject);
 
         }
 
         if (collision.gameObject.CompareTag("Jewelry"))
         {
-            ItemJewelry jewelry = collision.gameObject.GetComponent<ItemJewelry>();
+            jewelry = collision.gameObject.GetComponent<ItemJewelry>();
             JEWELRYCOLORTYPE jewelryColorType = jewelry.GetJewelryColorType();
             Jewerys(jewelryColorType);
             Destroy(collision.gameObject);

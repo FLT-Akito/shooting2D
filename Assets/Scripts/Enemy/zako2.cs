@@ -8,7 +8,7 @@ namespace Enemyzako2
 
     public class zako2 : EnemyController
     {
-       
+
         //public GameObject createItem;  
         float fangle = (Mathf.PI) / 4;
         Vector2 direction;
@@ -28,10 +28,7 @@ namespace Enemyzako2
             }
            
         }
-        //protected override void PopItem()
-        //{
-        //    Instantiate(createItem, transform.position, Quaternion.identity);
-        //}
+       
 
         //protected override void OnUpdate()
         //{

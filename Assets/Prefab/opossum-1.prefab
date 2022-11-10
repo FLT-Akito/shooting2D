@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8663997023628452267}
   - component: {fileID: 6743373355244246242}
   - component: {fileID: 2861732768099178475}
-  - component: {fileID: 1048532691400427281}
   m_Layer: 0
   m_Name: opossum-1
   m_TagString: Enemy
@@ -117,25 +116,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.12, y: -0.22}
+  m_Offset: {x: 0.73, y: -0.15}
   serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &1048532691400427281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6137229741332538124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91cde14f1f0d5a94ea6aafd012932c3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 100
-  hp: 1
-  explosion: {fileID: 7115207030335421265, guid: 3f42c596a34d2e74fa33b12e3ac13a8c, type: 3}
-  enemyBulletPref: {fileID: 3846711976263606798, guid: e125ac507af71bd418db82b22076b6c4, type: 3}
-  zako3_r1: 7
-  wallRight_r2: 7
-  creatItem: {fileID: 5535080867988434, guid: 5d79f4d91944e294a8955d7eae066cf5, type: 3}
+  m_Radius: 0.45

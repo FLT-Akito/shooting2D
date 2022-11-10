@@ -4,51 +4,39 @@ using UnityEngine;
 
 public class ZakoFixedBattery : EnemyController
 {
-    /*
-     * やりたいこと
-     * 一定時間ごとに攻撃をする
-     * 
-     * どうすれば実現できるか
-     * Attack()メソッドを一定の時間が経過したら呼び出す
-     */
     private float time;
-    private bool isAttack = true;
-    public float atkTime;
-
-    private GameObject wallRight;
-    
+    public float atkInterval;
 
     protected override void initialize()
     {
-        wallRight = GameObject.Find("WallRight");
         attackEvent.AddListener(() =>
         {
-            //Debug.Log("listener");
             time = 0f;
         });
-     
     }
 
     
     private void Update()
     {
-        if (isAttack)
-        {
-            Attack();
-        }
+        //if (isAttack)
+        //{
+        //    Attack();
+        //}
 
-        if (wallRight.transform.position.x >= this.gameObject.transform.position.x)
-        {
+        //if (wallRight.transform.position.x >= this.gameObject.transform.position.x)
+        //{
            
-            isAttack = false;
+        //    //isAttack = false;
+            
+        //}
+
+        if(IsCameraVeiw())
+        {
             time += Time.deltaTime;
 
-            if (time > atkTime)
+            if (time > atkInterval)
             {
                 Attack();
-                //OnAttack();
-                Attack_Triger = true;
-                //time = 0;
             }
         }
     }

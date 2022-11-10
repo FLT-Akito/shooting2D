@@ -29,14 +29,13 @@ public class UIController : MonoBehaviour
     public POWERUPTYPE[] poweruplist;
     private int itemCount = 0;
     private int lifeUpScore = 25000;
-    public int maxLifeup = 7;
     Dictionary<POWERUPTYPE, Text> weaponText;
     GameObject[] powerUpUI;
     GameObject[] powerUpUIData;
     public GameObject lifeUILayout;
     private Stack<GameObject> lifeUIList = new Stack<GameObject>();
     private float setRouletteTimer = 0;
-    private int powerUpUiCounter = 0;
+    //private int powerUpUiCounter = 0;
     public float rouletteSpeed;
    
     void Start()
@@ -94,14 +93,14 @@ public class UIController : MonoBehaviour
     {
         lifeUpScore += lifeUpScore;
 
-        if (LifeCountManager.lifeCount < maxLifeup)
+        if (LifeCountManager.lifeCount < Define.MAX_LIFE_COUNT)
         {
             LifeCountManager.lifeCount++;
             ShowLife(LifeCountManager.lifeCount);
         }
         else
         {
-            LifeCountManager.lifeCount = maxLifeup;
+            LifeCountManager.lifeCount = Define.MAX_LIFE_COUNT;
         }
 
 
@@ -162,26 +161,26 @@ public class UIController : MonoBehaviour
     {
         if (isRoulette)
         {
-            setRouletteTimer += rouletteSpeed * Time.deltaTime;
-            powerUpUiCounter = (int)setRouletteTimer;
 
-            if (powerUpUiCounter > powerUpUIData.Length)
+            setRouletteTimer += rouletteSpeed * Time.deltaTime;
+            itemCount = (int)setRouletteTimer;
+
+            if (itemCount > powerUpUIData.Length)
             {
                 setRouletteTimer = 1;
             }
 
-            SetUpItem(powerUpUiCounter);
+            SetUpItem(itemCount);
         }
     }
     public bool WeaponItemCount(out POWERUPTYPE poweruptype)
     {
         poweruptype = POWERUPTYPE.SPEED;
-        if (itemCount > 0 || powerUpUiCounter > 0)
+        if (itemCount > 0 )
         {
             
             poweruptype = poweruplist[itemCount - 1];
             itemCount = 0;
-            powerUpUiCounter = 0;
             SetUpItem(itemCount);
             return true;
         }

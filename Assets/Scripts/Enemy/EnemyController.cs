@@ -16,9 +16,9 @@ public abstract class EnemyController : MonoBehaviour
 
     public GameObject explosion;
     public GameObject enemyBulletPref;
-    public GameObject popItemPref;
+    //public GameObject popItemPref;
     //private GameObject wallLeft;
-    private GameObject playerShip;
+    protected GameObject playerShip;
 
     //基底クラス(継承)
     public float Speed { get; private set; } = -4f;
@@ -26,7 +26,7 @@ public abstract class EnemyController : MonoBehaviour
     public float Player_r2 { get; private set; } = 3.0f;   //playerの中心座標 
     public float ExcustionTime { get; set; } = 0.7f;
     public bool Attack_Triger { get; set; } = true;
-    public bool cameraVeiw;
+    private bool cameraVeiw;
     protected UnityEvent attackEvent = new UnityEvent();
 
     private void Start()
@@ -78,28 +78,26 @@ public abstract class EnemyController : MonoBehaviour
         return d;
     }
 
-    protected void Attack()
+    protected virtual void Attack()
     {
-        if (Attack_Triger)
-        {
+       
             if (playerShip != null)
             {
                 if (Distance(playerShip.transform.position, this.transform.position) < Zako_r1 + Player_r2)
                 {
-                    Vector2 direction = new Vector2(playerShip.transform.position.x - this.transform.position.x, playerShip.transform.position.y - this.transform.position.y);
+                    Vector2 direction = Direction();
                     ShotInstance(enemyBulletPref, direction);
                     attackEvent.Invoke();
-                    Attack_Triger = false;
+                    //Attack_Triger = false;
                 }
             }
-        }
-
+        
     }
 
-    //protected virtual void OnAttack()
-    //{
-    //    Attack();
-    //}
+    protected virtual Vector2 Direction()
+    {
+        return new Vector2(playerShip.transform.position.x - this.transform.position.x, playerShip.transform.position.y - this.transform.position.y);
+    }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -151,14 +149,6 @@ public abstract class EnemyController : MonoBehaviour
 
     private void OnWillRenderObject()
     {
-        //if (Camera.current.name != "SceneCamera" && Camera.current.name != "Preview Camera")
-
-
-        //{
-
-        //    
-        //}
-
         if(Camera.current.tag == "MainCamera")
         {
             cameraVeiw = true;
@@ -170,33 +160,20 @@ public abstract class EnemyController : MonoBehaviour
         cameraVeiw = false;
     }
 
-    //private void OnBecameVisible()
-    //{
-    //    cameraVeiw = true;
-    //    //Debug.Log(Camera.current.name);
-    //}
-
     public bool IsCameraVeiw()
     {
-
         return cameraVeiw;
-        //if(cameraView)
-        //{
-        //    return true;
-        //}
-        //return false;
     }
 
-    private void PopItem()
-    {
-        Instantiate(popItemPref, transform.position, Quaternion.identity);
-    }
+   
 
     protected virtual void Move() { }
 
     protected virtual void initialize() { }
 
     protected virtual void DamageColor() { }
+
+    protected virtual void PopItem() { }
     //protected virtual void OnUpdate() { }
 
     public void SetEnemyGroup(EnemyGroup group)
