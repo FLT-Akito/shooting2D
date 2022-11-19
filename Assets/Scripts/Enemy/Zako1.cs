@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Zako1 : EnemyController
+public class Zako1 : EnemyBase
 {
     public GameObject popItemPref;
+
     private void Update()
     {
         if (this.gameObject != null)
-        {       
+        {
             Move();
-            Attack();
+            if (Attack_Triger)
+            {
+                Attack();
+            }
         }
-    
+
     }
 
     protected override void Move()

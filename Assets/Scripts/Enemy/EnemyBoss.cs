@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 
 
-public class EnemyBoss : EnemyController
+public class EnemyBoss : EnemyBase
 {
    
     //public Item jewelry;

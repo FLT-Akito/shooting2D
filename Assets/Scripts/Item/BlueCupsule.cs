@@ -10,7 +10,7 @@ public class BlueCupsule : MonoBehaviour,IWipedOut
         GameObject[] gameObjects = FindObjectsOfType(typeof(GameObject)) as GameObject[];
         foreach (GameObject obj in gameObjects)
         {
-            EnemyController enemy = obj.GetComponent<EnemyController>();
+            EnemyBase enemy = obj.GetComponent<EnemyBase>();
             if (enemy != null)
             {
                 if (enemy.IsCameraVeiw())

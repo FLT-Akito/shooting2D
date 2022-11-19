@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZakoFixedBattery : EnemyController
+public class ZakoFixedBattery : EnemyBase
 {
     private float time;
     public float atkInterval;

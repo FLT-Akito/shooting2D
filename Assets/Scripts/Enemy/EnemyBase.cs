@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
 
-public abstract class EnemyController : MonoBehaviour
+public abstract class EnemyBase : StateMachineBase<EnemyBase>
 {
 
     //GameManager gameManager;
@@ -16,18 +16,18 @@ public abstract class EnemyController : MonoBehaviour
 
     public GameObject explosion;
     public GameObject enemyBulletPref;
-    //public GameObject popItemPref;
-    //private GameObject wallLeft;
+   
     protected GameObject playerShip;
+    protected UnityEvent attackEvent = new UnityEvent();
 
-    //基底クラス(継承)
     public float Speed { get; private set; } = -4f;
     public float Zako_r1 { get; set; } = 7.0f;              //zako1の中心座標
     public float Player_r2 { get; private set; } = 3.0f;   //playerの中心座標 
     public float ExcustionTime { get; set; } = 0.7f;
     public bool Attack_Triger { get; set; } = true;
+    public GameObject Player => playerShip;
     private bool cameraVeiw;
-    protected UnityEvent attackEvent = new UnityEvent();
+   
 
     private void Start()
     {
@@ -50,14 +50,18 @@ public abstract class EnemyController : MonoBehaviour
         Instantiate(explosion, transform.position, Quaternion.identity);
     }
 
-    public void ShotInstance(GameObject shotPrefab, Vector2 _direction)
+    public void ShotInstance(GameObject shotPrefab)
     {
-        BulletBase bullet = Instantiate(shotPrefab, this.transform.position, Quaternion.identity).GetComponent<BulletBase>();
+        Vector2 _direction = GetShotDirection();
+        BulletBase bullet = Instantiate(shotPrefab, GetShotPosition(), Quaternion.identity).GetComponent<BulletBase>();
         bullet.Init(5f, _direction);
 
     }
 
-
+    protected virtual Vector2 GetShotPosition()
+    {
+        return this.transform.position;
+    }
     //protected void EnemyDestroy()
     //{
     //    if (this.transform.position.x < wallLeft.transform.position.x)
@@ -78,23 +82,22 @@ public abstract class EnemyController : MonoBehaviour
         return d;
     }
 
-    protected virtual void Attack()
+    protected void Attack()
     {
-       
-            if (playerShip != null)
+
+        if (playerShip != null)
+        {
+            if (Distance(playerShip.transform.position, this.transform.position) < Zako_r1 + Player_r2)
             {
-                if (Distance(playerShip.transform.position, this.transform.position) < Zako_r1 + Player_r2)
-                {
-                    Vector2 direction = Direction();
-                    ShotInstance(enemyBulletPref, direction);
-                    attackEvent.Invoke();
-                    //Attack_Triger = false;
-                }
+                ShotInstance(enemyBulletPref);
+                attackEvent.Invoke();
+                Attack_Triger = false;
             }
-        
+        }
+
     }
 
-    protected virtual Vector2 Direction()
+    protected virtual Vector2 GetShotDirection()
     {
         return new Vector2(playerShip.transform.position.x - this.transform.position.x, playerShip.transform.position.y - this.transform.position.y);
     }
@@ -149,7 +152,7 @@ public abstract class EnemyController : MonoBehaviour
 
     private void OnWillRenderObject()
     {
-        if(Camera.current.tag == "MainCamera")
+        if (Camera.current.tag == "MainCamera")
         {
             cameraVeiw = true;
         }
@@ -165,7 +168,7 @@ public abstract class EnemyController : MonoBehaviour
         return cameraVeiw;
     }
 
-   
+
 
     protected virtual void Move() { }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Zako3 : EnemyController
+public class Zako3 : EnemyBase
 {
     private Vector2 position;
     private Vector2 velocity = new Vector2(2.5f, 0f);

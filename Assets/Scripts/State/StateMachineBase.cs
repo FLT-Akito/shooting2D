@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class StateMachineBase<T> where T : StateMachineBase<T>
+public class StateMachineBase<T> : MonoBehaviour where T : StateMachineBase<T>
 {
     private StateBase<T> currentState;
     private StateBase<T> nextState;

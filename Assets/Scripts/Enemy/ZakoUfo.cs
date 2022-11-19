@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZakoUfo : EnemyController
+public class ZakoUfo : EnemyBase
 {
    
     public GameObject zakoUfo;

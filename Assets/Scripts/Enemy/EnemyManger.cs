@@ -47,8 +47,8 @@ public class EnemyManger : MonoBehaviour
             yield return new WaitForSeconds(0.6f);
             GameObject goenemyA = Instantiate(enemyShip, new Vector3(30, 3, 0), Quaternion.identity);
             GameObject goenemyB = Instantiate(enemyShip, new Vector3(50, -3, 0), Quaternion.identity);
-            groupA.Entry(goenemyA.GetComponent<EnemyController>());
-            groupB.Entry(goenemyB.GetComponent<EnemyController>());
+            groupA.Entry(goenemyA.GetComponent<EnemyBase>());
+            groupB.Entry(goenemyB.GetComponent<EnemyBase>());
 
         }
 
@@ -60,7 +60,7 @@ public class EnemyManger : MonoBehaviour
             float offsetY = -2f;
             float intervalY = -1.0f;
             GameObject goenemyC = Instantiate(enemyShip2, new Vector3(43, count * intervalY + offsetY, 0), Quaternion.identity);
-            groupC.Entry(goenemyC.GetComponent<EnemyController>());
+            groupC.Entry(goenemyC.GetComponent<EnemyBase>());
             // Instantiate(enemyShip2, new Vector3(43, -1, 0), Quaternion.identity);
             // Instantiate(enemyShip2, new Vector3(43, -2, 0), Quaternion.identity);
 
@@ -72,8 +72,8 @@ public class EnemyManger : MonoBehaviour
             yield return new WaitForSeconds(0.6f);
             GameObject goenemyD = Instantiate(enemyShip, new Vector3(35, 3, 0), Quaternion.identity);
             GameObject goenemyE = Instantiate(enemyShip, new Vector3(55, -3, 0), Quaternion.identity);
-            groupD.Entry(goenemyD.GetComponent<EnemyController>());
-            groupE.Entry(goenemyE.GetComponent<EnemyController>());
+            groupD.Entry(goenemyD.GetComponent<EnemyBase>());
+            groupE.Entry(goenemyE.GetComponent<EnemyBase>());
 
         }
 
@@ -84,8 +84,8 @@ public class EnemyManger : MonoBehaviour
             yield return new WaitForSeconds(0.6f);
             GameObject goenemyF = Instantiate(enemyShip, new Vector3(40, 3, 0), Quaternion.identity);
             GameObject goenemyG = Instantiate(enemyShip, new Vector3(60, -3, 0), Quaternion.identity);
-            groupF.Entry(goenemyF.GetComponent<EnemyController>());
-            groupG.Entry(goenemyG.GetComponent<EnemyController>());
+            groupF.Entry(goenemyF.GetComponent<EnemyBase>());
+            groupG.Entry(goenemyG.GetComponent<EnemyBase>());
 
         }
 
@@ -97,7 +97,7 @@ public class EnemyManger : MonoBehaviour
             
             float intervalY = -1.0f;
             GameObject goenemyH = Instantiate(enemyShip2, new Vector3(55,count * intervalY, 0), Quaternion.identity);    
-            groupH.Entry(goenemyH.GetComponent<EnemyController>());
+            groupH.Entry(goenemyH.GetComponent<EnemyBase>());
         }
         
 
@@ -108,8 +108,8 @@ public class EnemyManger : MonoBehaviour
             yield return new WaitForSeconds(0.6f);
            GameObject goenemyI = Instantiate(enemyShip2, new Vector3(65, 2, 0), Quaternion.identity);
            GameObject goenemyJ = Instantiate(enemyShip2, new Vector3(75, -2, 0), Quaternion.identity);
-            groupI.Entry(goenemyI.GetComponent<EnemyController>());
-            groupJ.Entry(goenemyJ.GetComponent<EnemyController>());
+            groupI.Entry(goenemyI.GetComponent<EnemyBase>());
+            groupJ.Entry(goenemyJ.GetComponent<EnemyBase>());
         }
 
         yield return new WaitForSeconds(6f);
@@ -119,8 +119,8 @@ public class EnemyManger : MonoBehaviour
             yield return new WaitForSeconds(0.6f);
             GameObject goenemyK = Instantiate(enemyShip, new Vector3(75, 3, 0), Quaternion.identity);
             GameObject goenemyL = Instantiate(enemyShip, new Vector3(80, -3, 0), Quaternion.identity);
-            groupK.Entry(goenemyK.GetComponent<EnemyController>());
-            groupL.Entry(goenemyL.GetComponent<EnemyController>());
+            groupK.Entry(goenemyK.GetComponent<EnemyBase>());
+            groupL.Entry(goenemyL.GetComponent<EnemyBase>());
 
         }
     }

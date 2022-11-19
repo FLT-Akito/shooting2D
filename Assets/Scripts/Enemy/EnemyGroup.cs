@@ -7,13 +7,13 @@ public class EnemyGroup : MonoBehaviour
     public int deadCount = 0;
     public int totalNum = 0;     //enemy‚Ì”
 
-    public void Entry(EnemyController enemy)
+    public void Entry(EnemyBase enemy)
     {
         totalNum++;
         enemy.SetEnemyGroup(this);
     }
 
-    public bool Dead(EnemyController enemy)
+    public bool Dead(EnemyBase enemy)
     {
         deadCount++;
         if(deadCount >= totalNum)

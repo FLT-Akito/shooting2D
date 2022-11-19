@@ -6,7 +6,7 @@ namespace Enemyzako2
 {
 
 
-    public class zako2 : EnemyController
+    public class zako2 : EnemyBase
     {
 
         //public GameObject createItem;  
@@ -15,7 +15,6 @@ namespace Enemyzako2
 
         protected override void initialize()
         {
- 
             StartCoroutine(StartCoru());
         }
 
@@ -23,8 +22,10 @@ namespace Enemyzako2
         {
             if (this.gameObject != null)
             {
-                Attack();
-       
+                if (Attack_Triger)
+                {
+                    Attack();
+                }
             }
            
         }
