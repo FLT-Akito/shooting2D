@@ -38,9 +38,4 @@ public class Item : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-   
-
-  
-    
 }

@@ -8,7 +8,7 @@ public class EnemyBoss : EnemyBase
 {
    
     //public Item jewelry;
-    //public GameObject jewelry;
+    public GameObject jewelryPref;
     //private GameObject limit_WallLeft;
     private SpriteRenderer middleBossImageColor;
     private int repetition = 8; //反復回数（ダメージ、点滅演出）
@@ -33,11 +33,11 @@ public class EnemyBoss : EnemyBase
     }
 
 
-    //protected override void PopItem()
-    //{
-    //    //jewelry.JemApear(this.gameObject);
-    //    Instantiate(jewelry, transform.position, Quaternion.identity);
-    //}
+    protected override void PopItem()
+    {
+        //jewelry.JemApear(this.gameObject);
+        Instantiate(jewelryPref, transform.position, Quaternion.identity);
+    }
 
-    
+
 }

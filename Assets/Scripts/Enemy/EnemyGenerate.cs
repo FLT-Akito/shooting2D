@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EnemyManger : MonoBehaviour
+public class EnemyGenerate : MonoBehaviour
 {
     public GameObject enemyShip;
     public GameObject enemyShip2;
-    public GameObject enemyShip3;
+   // public GameObject zakoBlueBird;
 
     int prefabs_MaxCount = 4;
 
@@ -49,11 +49,9 @@ public class EnemyManger : MonoBehaviour
             GameObject goenemyB = Instantiate(enemyShip, new Vector3(50, -3, 0), Quaternion.identity);
             groupA.Entry(goenemyA.GetComponent<EnemyBase>());
             groupB.Entry(goenemyB.GetComponent<EnemyBase>());
-
         }
 
         yield return new WaitForSeconds(1.5f);
-
 
         for (int count = 0; count < prefabs_MaxCount - 1; count++)
         {

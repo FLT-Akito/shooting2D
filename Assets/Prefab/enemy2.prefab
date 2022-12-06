@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4665136302123549253}
   - component: {fileID: 4665136302123549259}
   - component: {fileID: 309414673234295945}
-  - component: {fileID: 1485035533065377999}
   m_Layer: 0
   m_Name: enemy2
   m_TagString: Enemy
@@ -101,7 +100,6 @@ MonoBehaviour:
   hp: 1
   explosion: {fileID: 7115207030335421265, guid: 3f42c596a34d2e74fa33b12e3ac13a8c, type: 3}
   enemyBulletPref: {fileID: 3846711976263606798, guid: e125ac507af71bd418db82b22076b6c4, type: 3}
-  popItemPref: {fileID: 5535080867988434, guid: 5d79f4d91944e294a8955d7eae066cf5, type: 3}
 --- !u!58 &309414673234295945
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -118,24 +116,3 @@ CircleCollider2D:
   m_Offset: {x: -0.01, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
---- !u!50 &1485035533065377999
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4665136302123549252}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4

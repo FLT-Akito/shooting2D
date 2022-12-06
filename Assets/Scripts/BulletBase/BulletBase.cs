@@ -32,8 +32,6 @@ public class BulletBase : MonoBehaviour
     void Update()
     {
         //スカラー倍(speed): ベクトルka(direction:単位ベクトル) speed * direction
-        transform.Translate(direction * speed * Time.deltaTime); 
-        //EnemyBulletBroken(limit_WallLeft);
-        
+        transform.Translate(direction * speed * Time.deltaTime);
     }
 }

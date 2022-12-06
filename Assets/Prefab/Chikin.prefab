@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1374135376332605628}
   m_Layer: 0
   m_Name: Chikin
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,5 +136,4 @@ MonoBehaviour:
   hp: 1
   explosion: {fileID: 7115207030335421265, guid: 3f42c596a34d2e74fa33b12e3ac13a8c, type: 3}
   enemyBulletPref: {fileID: 3846711976263606798, guid: e125ac507af71bd418db82b22076b6c4, type: 3}
-  popItemPref: {fileID: 0}
-  atkTime: 15
+  atkInterval: 0

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6981358256579034552}
   - component: {fileID: 2423196508820292484}
   - component: {fileID: 3424315709829593931}
-  - component: {fileID: 6921483998414807182}
   m_Layer: 0
   m_Name: enemy1
   m_TagString: Enemy
@@ -138,24 +137,3 @@ MonoBehaviour:
   explosion: {fileID: 7115207030335421265, guid: 3f42c596a34d2e74fa33b12e3ac13a8c, type: 3}
   enemyBulletPref: {fileID: 3846711976263606798, guid: e125ac507af71bd418db82b22076b6c4, type: 3}
   popItemPref: {fileID: 5535080867988434, guid: 5d79f4d91944e294a8955d7eae066cf5, type: 3}
---- !u!50 &6921483998414807182
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9096449008829068181}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4

@@ -31,18 +31,11 @@ public abstract class EnemyBase : StateMachineBase<EnemyBase>
 
     private void Start()
     {
-        //wallLeft = GameObject.Find("WallLeft");
+      
         playerShip = GameObject.Find("playerShip");
         uiController = GameObject.Find("Canvas").GetComponent<UIController>();
         initialize();
-
     }
-
-    //protected virtual void Move()
-    //{
-    //    gameObject.transform.position += new Vector3(Speed * Time.deltaTime, 0, 0);
-    //    //EnemyDestroy();
-    //}
 
     //“G‚ª‚â‚ç‚ê‚½‚ç”š”­‚·‚é
     private void EnemyExplosion()
@@ -62,16 +55,7 @@ public abstract class EnemyBase : StateMachineBase<EnemyBase>
     {
         return this.transform.position;
     }
-    //protected void EnemyDestroy()
-    //{
-    //    if (this.transform.position.x < wallLeft.transform.position.x)
-    //    {
-    //        Destroy(this.gameObject);
-
-    //    }
-
-    //}
-
+   
     public float Distance(Vector3 playerShip, Vector3 enemyShip)
     {
         var zako1_p1 = enemyShip;
@@ -82,9 +66,8 @@ public abstract class EnemyBase : StateMachineBase<EnemyBase>
         return d;
     }
 
-    protected void Attack()
+    protected virtual void Attack()
     {
-
         if (playerShip != null)
         {
             if (Distance(playerShip.transform.position, this.transform.position) < Zako_r1 + Player_r2)
@@ -94,7 +77,6 @@ public abstract class EnemyBase : StateMachineBase<EnemyBase>
                 Attack_Triger = false;
             }
         }
-
     }
 
     protected virtual Vector2 GetShotDirection()
@@ -140,7 +122,6 @@ public abstract class EnemyBase : StateMachineBase<EnemyBase>
             if (enemyGroup.Dead(this))
             {
                 PopItem();
-
             }
         }
         else
@@ -167,7 +148,6 @@ public abstract class EnemyBase : StateMachineBase<EnemyBase>
     {
         return cameraVeiw;
     }
-
 
 
     protected virtual void Move() { }

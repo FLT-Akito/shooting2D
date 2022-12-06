@@ -16,7 +16,6 @@ public class Zako1 : EnemyBase
                 Attack();
             }
         }
-
     }
 
     protected override void Move()

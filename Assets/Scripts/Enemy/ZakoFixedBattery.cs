@@ -40,18 +40,4 @@ public class ZakoFixedBattery : EnemyBase
             }
         }
     }
-   
-    //protected override void OnUpdate()
-    //{
-    //   // Debug.Log(time);
-    //    time += Time.deltaTime;
-    //    if (time > atkTime)
-    //    {
-    //        //OnAttack();
-    //        Attack_Triger = true;
-    //        //time = 0;
-    //    }
-
-    //}
-
 }

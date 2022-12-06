@@ -8,6 +8,8 @@ public class TestAngle : MonoBehaviour
     private Vector3 targetPosvec3;
     public float targetangle;
     public float ownAngle;
+    public Vector3 dir1;
+    public Vector3 dir2;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +24,10 @@ public class TestAngle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        targetangle = Vector3.Angle(targetTransform.position, transform.position);
-        //ownAngle = Vector3.Angle(targetTransform.position, targetTransform.position - transform.position);
+         dir1 = transform.position - targetTransform.transform.position;
+         dir2 = targetTransform.transform.position - transform.position;
+        //targetangle = Vector3.Angle(targetTransform.position, transform.position);
+        ownAngle = Vector3.Angle(targetTransform.position, dir2);
        
     }
 }

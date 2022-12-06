@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     public UIController uiController;
     private ItemJewelry jewelry;
-    private float speed = 5.0f;
+    private float speed = 3.0f;
     private float speedUpRate = 1.0f;
     private bool isSpeedUp = true;
     private bool isGigant = false;
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public string rightAnimator = "PlayerRight Animation";
     public string stopAnimator = "PlayerIdleAnimation";
     private string nowAnime = "";
+
     public float PlayerSpeed
     {
         get
@@ -222,7 +223,7 @@ public class PlayerController : MonoBehaviour
 
                 if (isSpeedUp)
                 {
-                    speedUpRate += 0.2f;
+                    speedUpRate += 1.0f;
                 }
 
                 if (PlayerSpeed >= maxSpeed)

@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZakoStopAndGo : EnemyBase
+public class ZakoReverceopossum : EnemyBase
 {
     public Transform shotTransform;
-    private Vector2 _direction = new Vector2(-1f, 1f);
+    private Vector2 _direction = new Vector2(-1f, -1f);
     private Vector3 vec3PosXscale;
     private float angle;
-    private int raydistance = 10;
+    private int raydistance = 8;
     private float time;
     public float atkInterval;
     public float speedLate;
     public int maxAmmunitionCount;
-    
 
     protected override void initialize()
     {
@@ -23,8 +22,9 @@ public class ZakoStopAndGo : EnemyBase
         });
 
         vec3PosXscale = transform.localScale;
-
-        ChangeState(new ZakoStopAndGo.Standby(this));
+        //Debug.Log(Mathf.Atan2(_direction.y, _direction.x)*Mathf.Rad2Deg);
+       
+        ChangeState(new ZakoReverceopossum.Standby(this));
     }
 
     protected override Vector2 GetShotDirection()
@@ -37,51 +37,57 @@ public class ZakoStopAndGo : EnemyBase
         return shotTransform.position;
     }
 
-  
     private class Standby : StateBase<EnemyBase>
     {
-        ZakoStopAndGo zako;
+        ZakoReverceopossum zako;
         public Standby(EnemyBase _machine) : base(_machine)
         {
         }
 
         public override void OnEnterState()
         {
-            zako = (ZakoStopAndGo)machine;
-            Debug.Log("Standby");
+            zako = (ZakoReverceopossum)machine;
         }
 
         public override void OnUpdate()
         {
             if (zako.IsCameraVeiw())
             {
-                zako.ChangeState(new ZakoStopAndGo.ChaseMoveLeft(zako));
+                zako.ChangeState(new ZakoReverceopossum.ChaseMoveLeft(zako));
             }
         }
     }
 
     private class ChaseMoveLeft : StateBase<EnemyBase>
     {
-        ZakoStopAndGo zako;
+        ZakoReverceopossum zako;
+
         public ChaseMoveLeft(EnemyBase _machine) : base(_machine)
         {
         }
 
         public override void OnEnterState()
         {
-            zako = (ZakoStopAndGo)machine;
+            zako = (ZakoReverceopossum)machine;
             Debug.Log("ChaseMoveLeft");
         }
 
         public override void OnUpdate()
         {
             zako.time += Time.deltaTime;
+
+            //if (zako.playerShip != null)
+            //{
+            //    Vector3 dir = zako.playerShip.transform.position - zako.transform.position;
+            //    zako.angle = Vector3.Angle(zako.transform.position, dir);
+            //}
+
            
             RaycastHit2D hit = Physics2D.Raycast(zako.shotTransform.position, zako._direction * zako.transform.localScale, zako.raydistance, Define.LAYER_PLAYER);
 
             if (hit)
             {
-                zako.ChangeState(new ZakoStopAndGo.GoAttack(zako));
+                zako.ChangeState(new ZakoReverceopossum.GoAttack(zako));
             }
 
             zako.transform.Translate((Vector2.left * zako.speedLate) * Time.deltaTime);
@@ -95,14 +101,16 @@ public class ZakoStopAndGo : EnemyBase
 
     private class GoAttack : StateBase<EnemyBase>
     {
-        ZakoStopAndGo zako;
+        ZakoReverceopossum zako;
+
         public GoAttack(EnemyBase _machine) : base(_machine)
         {
         }
 
         public override void OnEnterState()
         {
-            zako = (ZakoStopAndGo)machine;
+            zako = (ZakoReverceopossum)machine;
+            Debug.Log("GoAttack");
         }
 
         public override void OnUpdate()
@@ -117,7 +125,7 @@ public class ZakoStopAndGo : EnemyBase
 
             if (zako.playerShip != null)
             {
-                Vector3 dir = zako.playerShip.transform.position - zako.transform.position;
+                Vector3 dir = zako.playerShip.transform.position - zako.transform.position ;
                 zako.angle = Vector3.Angle(zako.transform.position, dir);
             }
 
@@ -125,14 +133,13 @@ public class ZakoStopAndGo : EnemyBase
 
             if (!hit)
             {
-               
                 if (zako.angle > 145)
                 {
-                    zako.ChangeState(new ZakoStopAndGo.ChaseMoveLeft(zako));
+                    zako.ChangeState(new ZakoReverceopossum.ChaseMoveLeft(zako));
                 }
                 else
                 {
-                    zako.ChangeState(new ZakoStopAndGo.ChaseMoveRight(zako));
+                    zako.ChangeState(new ZakoReverceopossum.ChaseMoveRight(zako));
                 }
             }
 
@@ -143,17 +150,18 @@ public class ZakoStopAndGo : EnemyBase
         }
     }
 
-
     private class ChaseMoveRight : StateBase<EnemyBase>
     {
-        ZakoStopAndGo zako;
+        ZakoReverceopossum zako;
+
         public ChaseMoveRight(EnemyBase _machine) : base(_machine)
         {
         }
 
         public override void OnEnterState()
         {
-            zako = (ZakoStopAndGo)machine;
+            zako = (ZakoReverceopossum)machine;
+            Debug.Log("ChaseMoveRight");
         }
 
         public override void OnUpdate()
@@ -170,12 +178,12 @@ public class ZakoStopAndGo : EnemyBase
 
             if (hit)
             {
-                zako.ChangeState(new ZakoStopAndGo.GoAttack(zako));
+                zako.ChangeState(new ZakoReverceopossum.GoAttack(zako));
             }
             else if (hit == false && zako.maxAmmunitionCount <= 0)
             {
                 zako.maxAmmunitionCount = 0;
-                zako.ChangeState(new ZakoStopAndGo.Retreat(zako));
+                zako.ChangeState(new ZakoReverceopossum.Retreat(zako));
             }
 
             zako.transform.Translate((Vector2.right * zako.speedLate) * Time.deltaTime);
@@ -189,7 +197,7 @@ public class ZakoStopAndGo : EnemyBase
 
     private class Retreat : StateBase<EnemyBase>
     {
-        ZakoStopAndGo zako;
+        ZakoReverceopossum zako;
 
         public Retreat(EnemyBase _machine) : base(_machine)
         {
@@ -197,17 +205,12 @@ public class ZakoStopAndGo : EnemyBase
 
         public override void OnEnterState()
         {
-            zako = (ZakoStopAndGo)machine;
+            zako = (ZakoReverceopossum)machine;
         }
 
         public override void OnUpdate()
         {
-            zako.transform.Translate((Vector2.left  * zako.speedLate) * Time.deltaTime);
+            zako.transform.Translate((Vector2.left * zako.speedLate) * Time.deltaTime);
         }
     }
-
-
 }
-
-
-
