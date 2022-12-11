@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MovingCamera : MonoBehaviour
 {
+    public UnityEvent isCameraStop = new UnityEvent();
+
     // Update is called once per frame
     void Update()
     {
@@ -12,6 +15,7 @@ public class MovingCamera : MonoBehaviour
         if (transform.position.x >= 223f)
         {
             transform.position = new Vector3(223f, 0, -10);
+            isCameraStop.Invoke();
         }
     }
 }

@@ -7,7 +7,7 @@ public class ZakoStopAndGo : EnemyBase
     public Transform shotTransform;
     private Vector2 _direction = new Vector2(-1f, 1f);
     private Vector3 vec3PosXscale;
-    private float angle;
+    public float angle;
     private int raydistance = 10;
     private float time;
     public float atkInterval;
@@ -48,7 +48,6 @@ public class ZakoStopAndGo : EnemyBase
         public override void OnEnterState()
         {
             zako = (ZakoStopAndGo)machine;
-            Debug.Log("Standby");
         }
 
         public override void OnUpdate()
@@ -70,7 +69,6 @@ public class ZakoStopAndGo : EnemyBase
         public override void OnEnterState()
         {
             zako = (ZakoStopAndGo)machine;
-            Debug.Log("ChaseMoveLeft");
         }
 
         public override void OnUpdate()
@@ -111,14 +109,15 @@ public class ZakoStopAndGo : EnemyBase
 
             if (zako.time > zako.atkInterval)
             {
-                zako.Attack();
-                zako.maxAmmunitionCount--;
+                //zako.Attack();
+                //zako.maxAmmunitionCount--;
             }
 
             if (zako.playerShip != null)
             {
                 Vector3 dir = zako.playerShip.transform.position - zako.transform.position;
                 zako.angle = Vector3.Angle(zako.transform.position, dir);
+                //zako.angle = Mathf.Atan2(dir.y, dir.x);
             }
 
             RaycastHit2D hit = Physics2D.Raycast(zako.shotTransform.position, zako._direction * zako.transform.localScale, zako.raydistance, Define.LAYER_PLAYER);

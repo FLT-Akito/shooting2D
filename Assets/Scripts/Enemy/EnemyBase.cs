@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using DG.Tweening;
+
 
 public abstract class EnemyBase : StateMachineBase<EnemyBase>
 {
@@ -91,11 +91,10 @@ public abstract class EnemyBase : StateMachineBase<EnemyBase>
         {
             Destroy(this.gameObject);
         }
+
         if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Megahone"))
         {
-
             TakeDamage(1);
-
         }
     }
 
@@ -107,7 +106,6 @@ public abstract class EnemyBase : StateMachineBase<EnemyBase>
         if (hp <= 0)
         {
             Eliminated();
-
         }
     }
 

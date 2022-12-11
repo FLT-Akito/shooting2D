@@ -12,7 +12,7 @@ public class EnemyBoss : EnemyBase
     //private GameObject limit_WallLeft;
     private SpriteRenderer middleBossImageColor;
     private int repetition = 8; //反復回数（ダメージ、点滅演出）
-    public float duration = 0.001f;
+    public float duration = 0.1f;
     [SerializeField] [Range(-1.0f, 1.0f)] private float period = 0.4f;
 
    

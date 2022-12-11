@@ -18,18 +18,6 @@ public class ZakoFixedBattery : EnemyBase
     
     private void Update()
     {
-        //if (isAttack)
-        //{
-        //    Attack();
-        //}
-
-        //if (wallRight.transform.position.x >= this.gameObject.transform.position.x)
-        //{
-           
-        //    //isAttack = false;
-            
-        //}
-
         if(IsCameraVeiw())
         {
             time += Time.deltaTime;
@@ -40,4 +28,5 @@ public class ZakoFixedBattery : EnemyBase
             }
         }
     }
+
 }
