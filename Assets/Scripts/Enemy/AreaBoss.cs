@@ -149,8 +149,6 @@ public class AreaBoss : EnemyBase
             {
                 isApeare = true;
             });
-
-            Debug.Log("Stanby");
         }
 
         public override void OnUpdate()

@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour
     //JEWELRYCOLORTYPE jewelryColorType = JEWELRYCOLORTYPE.TOPAZ;
     void Start()
     {
-
         circle = GetComponent<CircleCollider2D>();
         polygon = GetComponent<PolygonCollider2D>();
         rigi = GetComponent<Rigidbody2D>();
@@ -71,13 +70,11 @@ public class PlayerController : MonoBehaviour
         nowAnime = stopAnimator;
         weaponMain = weaponNomal; //通常弾はweaponNomal
         weaponSub = null;
-
     }
-
 
     void Update()
     {
-        
+
         float x = Input.GetAxisRaw("Horizontal");
 
         if (x == 0)     　　　　　　　　　　　　// 水平方向の移動
@@ -105,20 +102,28 @@ public class PlayerController : MonoBehaviour
         }
 
         //Player: パワーアップ処理
-        if (Input.GetKeyDown(KeyCode.F1))
-        {    
-            POWERUPTYPE poweruptype;
-            if (uiController.WeaponItemCount(out poweruptype))
+        if (!uiController.IsWeaponTextErase)
+        {
+            if (Input.GetKeyDown(KeyCode.F1))
             {
-                isRoulette = false;
-                PlayerPowerUp(poweruptype);
+                //Debug.Log(uiController.IsWeaponTextErase);
+                POWERUPTYPE poweruptype;
+                if (uiController.WeaponItemCount(out poweruptype))
+                {
+                    isRoulette = false;
+                    PlayerPowerUp(poweruptype);
+                    
+                }
             }
         }
-
-        //bomItem: 全滅処理
-        if(Input.GetKeyDown(KeyCode.F2))
+        else
         {
-            if(isWipedOut)
+            //Debug.Log(uiController.IsWeaponTextErase);
+        }
+        //bomItem: 全滅処理
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            if (isWipedOut)
             {
                 bomItem.SetActive(false);
                 IWipedOut wipedOut = jewelry;
@@ -230,26 +235,30 @@ public class PlayerController : MonoBehaviour
                 {
                     isSpeedUp = false;
                     uiController.WeaponTextErace(powerupType);
-
                 }
+
                 break;
 
             case POWERUPTYPE.MISSILE:
+
                 weaponSub = weaponMissile;
                 uiController.WeaponTextErace(powerupType);
                 break;
 
             case POWERUPTYPE.DOUBLE:
+
                 weaponMain = weaponDouble;
                 uiController.WeaponTextErace(powerupType);
                 break;
 
             case POWERUPTYPE.LASER:
+
                 weaponMain = weaponLaser;
                 uiController.WeaponTextErace(powerupType);
                 break;
 
             case POWERUPTYPE.OPTION: //Playerの子として生成。最大4つ。
+
                 count++;
                 //var ofsetX = -1.0f;
                 if (option != null)
@@ -270,6 +279,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case POWERUPTYPE.OH:
+
                 weaponMain = weaponNomal;
                 weaponSub = null;
                 option = null;
@@ -335,7 +345,7 @@ public class PlayerController : MonoBehaviour
             case JEWELRYCOLORTYPE.GARMET:   //画面内にいる敵を破壊するアイテム最大数１
                 bomItem.SetActive(true);
                 isWipedOut = true;
-            
+
                 break;
 
             case JEWELRYCOLORTYPE.RUBY:　　//スコアアップ
@@ -353,7 +363,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet")||collision.gameObject.CompareTag("Stage"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet") || collision.gameObject.CompareTag("Stage"))
         {
             Vector2 hitPoint = transform.position;
             if (isGigant)

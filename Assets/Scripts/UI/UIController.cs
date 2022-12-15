@@ -16,8 +16,9 @@ public enum POWERUPTYPE
 
 public class UIController : MonoBehaviour
 {
-   
+
     public GameObject lifeUIpref;
+
     public Text ScoreText;
     public Text MissileText;
     public Text SpeedText;
@@ -26,18 +27,24 @@ public class UIController : MonoBehaviour
     public Text F_FieldText;
     public Text OptionText;
     public Text OhText;
+    public Dictionary<POWERUPTYPE, Text> weaponText;
+
     public POWERUPTYPE[] poweruplist;
+
     private int itemCount = 0;
     private int lifeUpScore = 25000;
-    Dictionary<POWERUPTYPE, Text> weaponText;
+
     GameObject[] powerUpUI;
     GameObject[] powerUpUIData;
+
     public GameObject lifeUILayout;
     private Stack<GameObject> lifeUIList = new Stack<GameObject>();
+
     private float setRouletteTimer = 0;
-    //private int powerUpUiCounter = 0;
     public float rouletteSpeed;
-   
+
+    public bool IsWeaponTextErase { get; private set; }
+
     void Start()
     {
         weaponText = new Dictionary<POWERUPTYPE, Text>()
@@ -49,10 +56,10 @@ public class UIController : MonoBehaviour
             [POWERUPTYPE.OPTION] = OptionText,
             [POWERUPTYPE.LASER] = LaserText
         };
-
+       
         powerUpUI = GameObject.FindGameObjectsWithTag("PowerUpUI");
         powerUpUIData = new GameObject[powerUpUI.Length];
-        
+
         ScoreText.text = "SCORE:" + ScoreManager.score;
         ShowLife(LifeCountManager.lifeCount);
 
@@ -77,7 +84,7 @@ public class UIController : MonoBehaviour
         }
     }
 
-  
+
     public void AddScore(int _score)
     {
         ScoreManager.score += _score;
@@ -108,12 +115,11 @@ public class UIController : MonoBehaviour
 
     public void WeaponTextErace(POWERUPTYPE powerupType)
     {
-
         if (weaponText[powerupType].text != null)
         {
             weaponText[powerupType].text = "";
         }
-
+       
     }
 
     public void ResetText()
@@ -140,28 +146,43 @@ public class UIController : MonoBehaviour
 
     public void SetUpItem(int itemIndex)
     {
-
         for (int i = 1; i < powerUpUIData.Length + 1; i++)
         {
-
             var sr = powerUpUI[i - 1].GetComponent<Image>();
             if (i == itemIndex)
             {
                 sr.color = Color.green;
+                
+                if(weaponText[(POWERUPTYPE)itemIndex - 1].text == "")
+                {
+                    IsWeaponTextErase = true;
+                    Debug.Log(IsWeaponTextErase);
+                }
+                else
+                {
+                    Debug.Log(IsWeaponTextErase);
+                    IsWeaponTextErase = false;
+                }
+
             }
             else
             {
                 sr.color = Color.white;
             }
         }
+    }
 
+    private void CheckPowerUpText(int itemIndex,out POWERUPTYPE powerUpType)
+    {
+        powerUpType = POWERUPTYPE.SPEED;
+
+       
     }
 
     public void RouletteStart(bool isRoulette)
     {
         if (isRoulette)
         {
-
             setRouletteTimer += rouletteSpeed * Time.deltaTime;
             itemCount = (int)setRouletteTimer;
 
@@ -173,18 +194,19 @@ public class UIController : MonoBehaviour
             SetUpItem(itemCount);
         }
     }
+
     public bool WeaponItemCount(out POWERUPTYPE poweruptype)
     {
         poweruptype = POWERUPTYPE.SPEED;
-        if (itemCount > 0 )
+
+        if (itemCount > 0)
         {
-            
             poweruptype = poweruplist[itemCount - 1];
             itemCount = 0;
             SetUpItem(itemCount);
             return true;
         }
-        return false;
 
+        return false;
     }
 }
