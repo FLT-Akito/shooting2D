@@ -74,7 +74,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         float x = Input.GetAxisRaw("Horizontal");
 
         if (x == 0)     　　　　　　　　　　　　// 水平方向の移動
@@ -106,20 +105,15 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F1))
             {
-                //Debug.Log(uiController.IsWeaponTextErase);
                 POWERUPTYPE poweruptype;
                 if (uiController.WeaponItemCount(out poweruptype))
                 {
                     isRoulette = false;
                     PlayerPowerUp(poweruptype);
-                    
                 }
             }
         }
-        else
-        {
-            //Debug.Log(uiController.IsWeaponTextErase);
-        }
+      
         //bomItem: 全滅処理
         if (Input.GetKeyDown(KeyCode.F2))
         {
@@ -178,37 +172,30 @@ public class PlayerController : MonoBehaviour
             if (weaponMain != null)
             {
                 weaponMain.SetShotRequest(true);
-
             }
 
             if (weaponSub != null)
             {
                 weaponSub.SetShotRequest(true);
-
             }
-
         }
-
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
             if (weaponMain != null)
             {
                 weaponMain.SetShotRequest(false);
-
             }
 
             if (weaponSub != null)
             {
                 weaponSub.SetShotRequest(false);
-
             }
 
         }
 
         if (isRoulette)
         {
-            //time += Time.deltaTime;
             uiController.RouletteStart(isRoulette);
         }
     }
@@ -249,12 +236,22 @@ public class PlayerController : MonoBehaviour
 
                 weaponMain = weaponDouble;
                 uiController.WeaponTextErace(powerupType);
+
+                if (uiController.weaponText[POWERUPTYPE.LASER].text == "")
+                {
+                    uiController.LaserText.text = "LASER";
+                }
                 break;
 
             case POWERUPTYPE.LASER:
 
                 weaponMain = weaponLaser;
                 uiController.WeaponTextErace(powerupType);
+
+                if(uiController.weaponText[POWERUPTYPE.DOUBLE].text == "")
+                {
+                    uiController.DoubleText.text = "DOUBLE";
+                }
                 break;
 
             case POWERUPTYPE.OPTION: //Playerの子として生成。最大4つ。
@@ -374,6 +371,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 Destroy(this.gameObject);
+                SoundManager.instance.audio.PlayOneShot(SoundManager.instance.explosionSE);
                 LifeCountManager.lifeCount--;
 
                 if (LifeCountManager.lifeCount <= 0)

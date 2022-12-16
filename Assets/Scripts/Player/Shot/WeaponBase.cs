@@ -20,26 +20,26 @@ public abstract class WeaponBase : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
+
         if (requestShot)
         {
             if (time >= interval)
             {
-                Shot();  
+                Shot();
+                SoundManager.instance.audio.PlayOneShot(SoundManager.instance.shotSE);
                 time = 0;
             }
-
         }
     }
 
     public void SetShotRequest(bool request)
     {
         requestShot = request;
-
     }
+
     public abstract void Shot();
 
     public virtual void Fire() { }
 
     public virtual void Init() { }
-    //public virtual void SubFire() { }
 }

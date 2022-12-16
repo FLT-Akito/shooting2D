@@ -112,6 +112,7 @@ public abstract class EnemyBase : StateMachineBase<EnemyBase>
     public void Eliminated()
     {
         Destroy(gameObject);
+        SoundManager.instance.audio.PlayOneShot(SoundManager.instance.explosionSE);
         EnemyExplosion();
         uiController.AddScore(score);
 

@@ -5,10 +5,12 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
+
+    [System.NonSerialized]
     public AudioSource audio;
-    public AudioClip shot;
-    public AudioClip hit;
-    public AudioClip explosion;
+
+    public AudioClip shotSE;
+    public AudioClip explosionSE;
 
 
     private void Awake()
