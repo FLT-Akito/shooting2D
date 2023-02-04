@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8385457647935410695}
   - component: {fileID: 6677427984234620420}
   - component: {fileID: 9085649633734309118}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RedCupsule
   m_TagString: RedCupsule
   m_Icon: {fileID: 0}

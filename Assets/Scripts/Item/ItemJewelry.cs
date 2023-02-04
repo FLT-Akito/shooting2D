@@ -68,7 +68,10 @@ public class ItemJewelry : Item,IWipedOut
             {
                 if (enemy.IsCameraVeiw())
                 {
-                    enemy.Eliminated();
+                    if (enemy.tag == "Enemy")
+                    {
+                        enemy.Eliminated();
+                    }
                 }
             }
         }

@@ -7,7 +7,8 @@ using DG.Tweening;
 public enum SPAttackType
 {
     CIRCLE = 0,
-    PLAYERAIM
+    PLAYERAIM,
+    MAX
 }
 
 public class AreaBoss : EnemyBase
@@ -153,12 +154,12 @@ public class AreaBoss : EnemyBase
 
         public override void OnUpdate()
         {
-          
+
             if (isApeare)
             {
                 boss.transform.position += new Vector3(-3f * Time.deltaTime, 0f, 0f);
 
-                if (boss.transform.position.x < 230f)
+                if (boss.transform.position.x < 193.5f)
                 {
                     boss.ChangeState(new AreaBoss.MoveUp(boss));
                 }
@@ -271,7 +272,7 @@ public class AreaBoss : EnemyBase
     {
         AreaBoss boss;
 
-        private int randomSpAttack;
+        private SPAttackType randomSpAttack;
 
         public SpecialAttack(EnemyBase _machine) : base(_machine)
         {
@@ -280,12 +281,12 @@ public class AreaBoss : EnemyBase
         public override void OnEnterState()
         {
             boss = (AreaBoss)machine;
-            randomSpAttack = Random.Range(0, 2);
+            randomSpAttack = (SPAttackType)Random.Range(0, (int)SPAttackType.MAX);
         }
 
         public override void OnUpdate()
         {
-            boss.SpAttack((SPAttackType)randomSpAttack);
+            boss.SpAttack(randomSpAttack);
             boss.ChangeState(new AreaBoss.Stop(boss));
         }
     }

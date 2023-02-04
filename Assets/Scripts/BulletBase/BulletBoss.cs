@@ -21,7 +21,8 @@ public class BulletBoss : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("DeadLine"))
+        if (collision.gameObject.CompareTag("DeadLine")||
+            collision.gameObject.CompareTag("WallRight"))
         {
             Destroy(this.gameObject);
         }

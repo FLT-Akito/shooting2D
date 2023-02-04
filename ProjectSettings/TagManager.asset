@@ -20,6 +20,8 @@ TagManager:
   - RedCupsel
   - BlueCupsel
   - PowerUpUI
+  - WallRight
+  - AreaBoss
   layers:
   - Default
   - TransparentFX
@@ -30,9 +32,9 @@ TagManager:
   - 
   - 
   - PlayerShip
-  - wallRight
-  - 
-  - 
+  - AreaBossBullet
+  - Item
+  - Wall
   - 
   - 
   - 

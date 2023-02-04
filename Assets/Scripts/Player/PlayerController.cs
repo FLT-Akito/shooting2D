@@ -9,25 +9,35 @@ public class PlayerController : MonoBehaviour
 {
     public UIController uiController;
     private ItemJewelry jewelry;
+
     private float speed = 3.0f;
     private float speedUpRate = 1.0f;
+
     private bool isSpeedUp = true;
     private bool isGigant = false;
     private bool isRoulette = false;
     private bool isWipedOut = false;
+
     public float rouletteSpeed;
+
     private const float maxSpeed = 10f;
     private const int maxOptions = 4;
+
     private WeaponBase weaponMain;
     private WeaponBase weaponSub;
     private WeaponBase weaponMainTemp;
     private WeaponBase weaponSubTemp;
+
     private CircleCollider2D circle;
     private PolygonCollider2D polygon;
+
     private int count = 0;
+
     public Vector3[] positionHistories = new Vector3[300];
     private Vector3 positionLast;
+
     private List<GameObject> optionList = new List<GameObject>();
+
     [SerializeField] GameObject bomItem;
     [SerializeField] GameObject megahone;
     [SerializeField] WeaponDouble weaponDouble;
@@ -37,8 +47,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject Hit;
     [SerializeField] GameObject option;
     [SerializeField] GameManager gameManager;
+    [SerializeField] FlashController flashController;
+
     Rigidbody2D rigi;
     Animator animator;
+
     public string leftAnimator = "PlayerLeft Animation";
     public string rightAnimator = "PlayerRight Animation";
     public string stopAnimator = "PlayerIdleAnimation";
@@ -122,9 +135,20 @@ public class PlayerController : MonoBehaviour
                 bomItem.SetActive(false);
                 IWipedOut wipedOut = jewelry;
                 wipedOut.WipedOut();
+
+                flashController.Img.color = new Color(255f, 120f, 0, 0.5f);
             }
 
             isWipedOut = false;
+            //画面フラッシュ
+            //flashController.isFlash = true;
+            //flashController.flashEvent.Invoke();
+        }
+
+
+        if (Input.GetKeyUp(KeyCode.F2))
+        {
+            flashController.Img.color = Color.Lerp(flashController.Img.color, Color.clear, Time.deltaTime);
         }
 
         //アニメーションの切り替え
@@ -144,10 +168,10 @@ public class PlayerController : MonoBehaviour
         }
 
         //playerが消滅したらリトライボタンが押せる
-        if (this.gameObject == null)
-        {
-            RetrayPress();
-        }
+        //if (this.gameObject == null)
+        //{
+        //    RetrayPress();
+        //}
 
         //OptionはPlayerの過去の軌跡
         if (this.transform.position != positionLast || (x != 0f || y != 0f))
@@ -360,7 +384,8 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet") || collision.gameObject.CompareTag("Stage"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet") || 
+            collision.gameObject.CompareTag("Stage")|| collision.gameObject.CompareTag("AreaBoss"))
         {
             Vector2 hitPoint = transform.position;
             if (isGigant)

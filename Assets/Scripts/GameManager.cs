@@ -14,23 +14,24 @@ public class GameManager : MonoBehaviour
     public GameObject returyText;
     public GameObject gameClearText;
 
-    public GameObject retryButton;
+   // public GameObject retryButton;
 
     public UIController uiController;
 
     public AreaBoss boss;
+    public GameObject player;
 
-    private bool gameOver = false;
-    private bool gameClear = false;
+    private bool gameOverFlag = false;
+    private bool gameClearFlag = false;
 
     private void Update()
     {
-        if (gameOver)
+        if (gameOverFlag)
         {
             StartCoroutine("GameOver");
         }
 
-        if(gameClear)
+        if (gameClearFlag)
         {
             StartCoroutine("GameClear");
         }
@@ -38,15 +39,18 @@ public class GameManager : MonoBehaviour
 
     public void GameOverText()
     {
-        gameOver = true;
+        gameOverFlag = true;
         gameOverText.SetActive(true);
         uiController.ShowLife(LifeCountManager.lifeCount);
     }
 
     public void GameClearText()
     {
-        gameClear = true;
-        gameClearText.SetActive(true);
+        if (player != null)
+        {
+            gameClearFlag = true;
+            gameClearText.SetActive(true);
+        }
     }
 
     private IEnumerator GameOver()
@@ -74,14 +78,19 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable()
     {
+      
         boss.destroyed.RemoveAllListeners();
     }
 
+     
     private void OnEnable()
     {
         boss.destroyed.AddListener(() =>
         {
             GameClearText();
         });
+
     }
+
+
 }

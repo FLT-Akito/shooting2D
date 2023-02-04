@@ -12,9 +12,9 @@ public class MovingCamera : MonoBehaviour
     {
         transform.position += new Vector3(1f, 0, 0) * Time.deltaTime;
 
-        if (transform.position.x >= 223f)
+        if (transform.position.x >= 186f)
         {
-            transform.position = new Vector3(223f, 0, -10);
+            transform.position = new Vector3(186f, 0, -10);
             isCameraStop.Invoke();
         }
     }
