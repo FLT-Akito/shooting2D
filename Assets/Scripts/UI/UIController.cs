@@ -11,7 +11,6 @@ public enum POWERUPTYPE
     LASER,
     OPTION,
     OH,
-    F_FILED
 }
 
 public class UIController : MonoBehaviour
@@ -24,9 +23,9 @@ public class UIController : MonoBehaviour
     public Text SpeedText;
     public Text LaserText;
     public Text DoubleText;
-    public Text F_FieldText;
     public Text OptionText;
     public Text OhText;
+
     public Dictionary<POWERUPTYPE, Text> weaponText;
 
     public POWERUPTYPE[] poweruplist;
@@ -52,9 +51,9 @@ public class UIController : MonoBehaviour
             [POWERUPTYPE.MISSILE] = MissileText,
             [POWERUPTYPE.SPEED] = SpeedText,
             [POWERUPTYPE.DOUBLE] = DoubleText,
-            [POWERUPTYPE.F_FILED] = F_FieldText,
             [POWERUPTYPE.OPTION] = OptionText,
-            [POWERUPTYPE.LASER] = LaserText
+            [POWERUPTYPE.LASER] = LaserText,
+            [POWERUPTYPE.OH] = OhText
         };
        
         powerUpUI = GameObject.FindGameObjectsWithTag("PowerUpUI");
@@ -73,7 +72,6 @@ public class UIController : MonoBehaviour
         {
             var popLifeUI = lifeUIList.Pop();
             Destroy(popLifeUI);
-            //Debug.Log($"Destroy:{i}");
         }
 
         for (int i = 0; i < life; i++)
@@ -83,7 +81,6 @@ public class UIController : MonoBehaviour
             obj.transform.SetParent(lifeUILayout.transform);
         }
     }
-
 
     public void AddScore(int _score)
     {
@@ -109,8 +106,6 @@ public class UIController : MonoBehaviour
         {
             LifeCountManager.lifeCount = Define.MAX_LIFE_COUNT;
         }
-
-
     }
 
     public void WeaponTextErace(POWERUPTYPE powerupType)
@@ -119,7 +114,6 @@ public class UIController : MonoBehaviour
         {
             weaponText[powerupType].text = "";
         }
-       
     }
 
     public void ResetText()
@@ -128,9 +122,7 @@ public class UIController : MonoBehaviour
         SpeedText.text = "SPEED";
         DoubleText.text = "DOUBLE";
         LaserText.text = "LASER";
-        F_FieldText.text = "F.FILED";
         OhText.text = "OH";
-        OptionText.text = "OPTION";
     }
 
     public void SetItems()
@@ -155,15 +147,12 @@ public class UIController : MonoBehaviour
                 
                 if(weaponText[(POWERUPTYPE)itemIndex - 1].text == "")
                 {
-                    IsWeaponTextErase = true;
-                    Debug.Log(IsWeaponTextErase);
+                    IsWeaponTextErase = true; //•Ï”–¼‚ªˆ«‚¢‚©‚ç•ÏX‚·‚é
                 }
                 else
                 {
-                    Debug.Log(IsWeaponTextErase);
                     IsWeaponTextErase = false;
                 }
-
             }
             else
             {
@@ -172,12 +161,10 @@ public class UIController : MonoBehaviour
         }
     }
 
-    private void CheckPowerUpText(int itemIndex,out POWERUPTYPE powerUpType)
-    {
-        powerUpType = POWERUPTYPE.SPEED;
-
-       
-    }
+    //private void CheckPowerUpText(int itemIndex,out POWERUPTYPE powerUpType)
+    //{
+    //    powerUpType = POWERUPTYPE.SPEED;
+    //}
 
     public void RouletteStart(bool isRoulette)
     {

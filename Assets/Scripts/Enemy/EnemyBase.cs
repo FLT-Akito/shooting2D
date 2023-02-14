@@ -6,8 +6,6 @@ using UnityEngine.Events;
 
 public abstract class EnemyBase : StateMachineBase<EnemyBase>
 {
-
-    //GameManager gameManager;
     UIController uiController;
     protected EnemyGroup enemyGroup;
     protected EnemyBoss enemyBoss;
@@ -28,10 +26,8 @@ public abstract class EnemyBase : StateMachineBase<EnemyBase>
     public GameObject Player => playerShip;
     private bool cameraVeiw;
    
-
     private void Start()
     {
-      
         playerShip = GameObject.Find("playerShip");
         uiController = GameObject.Find("Canvas").GetComponent<UIController>();
         initialize();
@@ -48,7 +44,6 @@ public abstract class EnemyBase : StateMachineBase<EnemyBase>
         Vector2 _direction = GetShotDirection();
         BulletBase bullet = Instantiate(shotPrefab, GetShotPosition(), Quaternion.identity).GetComponent<BulletBase>();
         bullet.Init(5f, _direction);
-
     }
 
     protected virtual Vector2 GetShotPosition()
@@ -162,7 +157,6 @@ public abstract class EnemyBase : StateMachineBase<EnemyBase>
     {
         enemyGroup = group;
     }
-
 }
 
 

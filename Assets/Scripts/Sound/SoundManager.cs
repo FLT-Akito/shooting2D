@@ -12,7 +12,6 @@ public class SoundManager : MonoBehaviour
     public AudioClip shotSE;
     public AudioClip explosionSE;
 
-
     private void Awake()
     {
         if(instance == null)
@@ -29,11 +28,5 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         audio = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -5,17 +5,26 @@ using UnityEngine.Events;
 
 public class MovingCamera : MonoBehaviour
 {
-    public UnityEvent isCameraStop = new UnityEvent();
+    public UnityEvent cameraEvent = new UnityEvent();
+    public GameObject player;
 
-    // Update is called once per frame
+    private Vector3 cameraVelocity = new Vector3(1f, 0f, 0f);
+
     void Update()
     {
-        transform.position += new Vector3(1f, 0, 0) * Time.deltaTime;
+        transform.position += cameraVelocity * Time.deltaTime;
 
         if (transform.position.x >= 186f)
         {
             transform.position = new Vector3(186f, 0, -10);
-            isCameraStop.Invoke();
+            cameraEvent.Invoke();
+        }
+
+        if(player.gameObject == null)
+        {
+            cameraVelocity.x = 0f;
         }
     }
+
+    
 }

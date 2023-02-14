@@ -5,13 +5,16 @@ using UnityEngine;
 public class ItemJewelry : Item,IWipedOut
 {
     public JEWELRYCOLORTYPE[] jewelryTypeList;
+
     private SpriteRenderer spriteRenderer;
     public Sprite[] sprites;
+
     float initSpeed = 5f;
     float gravity = -0.01f;
     int changeColor = 0;
     int maxCount = 3;
     int count = 0;
+
     Vector3 position;
     Vector3 velocity;
    
@@ -25,7 +28,7 @@ public class ItemJewelry : Item,IWipedOut
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         position = transform.position;
-        velocity.x = 0; //�ʏ펞initSpeed;
+        velocity.x = 0; 
     }
    
     protected override void Tick()
@@ -54,7 +57,6 @@ public class ItemJewelry : Item,IWipedOut
             {
                 Destroy(playerBullet.gameObject);
             }
-            
         }
     }
 
@@ -76,21 +78,4 @@ public class ItemJewelry : Item,IWipedOut
             }
         }
     }
-
-    //public bool JewelryColorType(out JEWELRYCOLORTYPE jewerlyColorType)
-    //{
-    //    jewerlyColorType = JEWELRYCOLORTYPE.TOPAZ;
-
-    //    if (sprites[changeColor] != null)
-    //    {
-    //        //ChangeColorCount(ref changeColor);
-    //        //changeColor %= sprites.Length;
-    //        jewerlyColorType = jewelryTypeList[changeColor];
-    //        Debug.Log(changeColor);
-    //        //Debug.Log(jewerlyColorType);
-    //        return true;
-    //    }
-    //    return false;
-
-    //}
 }

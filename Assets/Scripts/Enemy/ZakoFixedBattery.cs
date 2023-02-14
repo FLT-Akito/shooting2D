@@ -15,7 +15,6 @@ public class ZakoFixedBattery : EnemyBase
         });
     }
 
-    
     private void Update()
     {
         if(IsCameraVeiw())
@@ -28,5 +27,4 @@ public class ZakoFixedBattery : EnemyBase
             }
         }
     }
-
 }

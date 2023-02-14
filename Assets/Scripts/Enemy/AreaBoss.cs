@@ -146,7 +146,7 @@ public class AreaBoss : EnemyBase
         public override void OnEnterState()
         {
             boss = (AreaBoss)machine;
-            boss._camera.isCameraStop.AddListener(() =>
+            boss._camera.cameraEvent.AddListener(() =>
             {
                 isApeare = true;
             });
@@ -154,7 +154,6 @@ public class AreaBoss : EnemyBase
 
         public override void OnUpdate()
         {
-
             if (isApeare)
             {
                 boss.transform.position += new Vector3(-3f * Time.deltaTime, 0f, 0f);
@@ -165,7 +164,6 @@ public class AreaBoss : EnemyBase
                 }
             }
         }
-
     }
 
     private class MoveUp : StateBase<EnemyBase>

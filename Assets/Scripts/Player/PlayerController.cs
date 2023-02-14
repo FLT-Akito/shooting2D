@@ -135,22 +135,14 @@ public class PlayerController : MonoBehaviour
                 bomItem.SetActive(false);
                 IWipedOut wipedOut = jewelry;
                 wipedOut.WipedOut();
-
-                flashController.Img.color = new Color(255f, 120f, 0, 0.5f);
+                flashController.Flash();
             }
 
+            flashController.isFlash = false;
             isWipedOut = false;
-            //画面フラッシュ
-            //flashController.isFlash = true;
-            //flashController.flashEvent.Invoke();
         }
 
-
-        if (Input.GetKeyUp(KeyCode.F2))
-        {
-            flashController.Img.color = Color.Lerp(flashController.Img.color, Color.clear, Time.deltaTime);
-        }
-
+        flashController.OriginalState();
         //アニメーションの切り替え
         switch (direction)
         {
@@ -166,12 +158,6 @@ public class PlayerController : MonoBehaviour
                 animator.Play(nowAnime);
                 break;
         }
-
-        //playerが消滅したらリトライボタンが押せる
-        //if (this.gameObject == null)
-        //{
-        //    RetrayPress();
-        //}
 
         //OptionはPlayerの過去の軌跡
         if (this.transform.position != positionLast || (x != 0f || y != 0f))
@@ -215,7 +201,6 @@ public class PlayerController : MonoBehaviour
             {
                 weaponSub.SetShotRequest(false);
             }
-
         }
 
         if (isRoulette)
@@ -281,7 +266,6 @@ public class PlayerController : MonoBehaviour
             case POWERUPTYPE.OPTION: //Playerの子として生成。最大4つ。
 
                 count++;
-                //var ofsetX = -1.0f;
                 if (option != null)
                 {
                     if (count <= maxOptions)
@@ -307,8 +291,8 @@ public class PlayerController : MonoBehaviour
                 uiController.ResetText();
                 break;
 
-            case POWERUPTYPE.F_FILED: //FILEDには耐久値を持たせる
-                break;
+            //case POWERUPTYPE.F_FILED: //FILEDには耐久値を持たせる
+            //    break;
         }
     }
 
@@ -366,7 +350,7 @@ public class PlayerController : MonoBehaviour
             case JEWELRYCOLORTYPE.GARMET:   //画面内にいる敵を破壊するアイテム最大数１
                 bomItem.SetActive(true);
                 isWipedOut = true;
-
+                flashController.isFlash = true;
                 break;
 
             case JEWELRYCOLORTYPE.RUBY:　　//スコアアップ
@@ -383,7 +367,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet") || 
             collision.gameObject.CompareTag("Stage")|| collision.gameObject.CompareTag("AreaBoss"))
         {
@@ -441,12 +424,4 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
-
-
-    private void RetrayPress()
-    {
-        gameManager.OnPressRetryButton();
-    }
-
-
 }

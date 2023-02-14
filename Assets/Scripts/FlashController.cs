@@ -6,34 +6,24 @@ using UnityEngine.Events;
 
 public class FlashController : MonoBehaviour
 {
-	public UnityEvent flashEvent = new UnityEvent();
 	public bool isFlash = false;
 
 	private Image _img;
-	public Image Img { get => _img; }
-
+	
 	void Start()
 	{
 		_img = GetComponent<Image>();
+		_img.color = Color.clear;
 	}
 
-	void Update()
-	{
-		flashEvent.AddListener(() =>
-		{
-			if (isFlash)
-			{
-				this._img.color = new Color(255f, 120f, 0, 0.5f);
-			}
-			else
-			{
-				
-				this._img.color = Color.Lerp(_img.color, Color.clear, Time.deltaTime);
-			}
-		});
+	public void Flash()
+    {
+			this._img.color = new Color(255f, 120f, 0, 0.5f);
+	}
 
-      
-    }
-
+	public void OriginalState()
+    {
+		this._img.color = Color.Lerp(_img.color, Color.clear, Time.deltaTime);
+	}
 
 }

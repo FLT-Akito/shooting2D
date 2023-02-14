@@ -14,9 +14,8 @@ public class GameManager : MonoBehaviour
     public GameObject returyText;
     public GameObject gameClearText;
 
-   // public GameObject retryButton;
-
     public UIController uiController;
+    private FlashController flashController;
 
     public AreaBoss boss;
     public GameObject player;
@@ -24,16 +23,21 @@ public class GameManager : MonoBehaviour
     private bool gameOverFlag = false;
     private bool gameClearFlag = false;
 
+    private void Start()
+    {
+        flashController = GameObject.Find("FlashImage").GetComponent<FlashController>();
+    }
+
     private void Update()
     {
         if (gameOverFlag)
         {
-            StartCoroutine("GameOver");
+            Invoke("GameOver", 2f);
         }
 
         if (gameClearFlag)
         {
-            StartCoroutine("GameClear");
+            Invoke("GameClear", 2f);
         }
     }
 
@@ -53,20 +57,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator GameOver()
+    private void GameOver()
     {
-        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("TitleScene");
     }
 
-    private IEnumerator GameClear()
+    private void GameClear()
     {
-        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("TitleScene");
     }
 
     public void RetryText()
     {
+        flashController.gameObject.SetActive(false);
         returyText.SetActive(true);
         uiController.ShowLife(LifeCountManager.lifeCount);
     }
@@ -78,7 +81,6 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable()
     {
-      
         boss.destroyed.RemoveAllListeners();
     }
 
@@ -89,8 +91,5 @@ public class GameManager : MonoBehaviour
         {
             GameClearText();
         });
-
     }
-
-
 }
