@@ -7596,7 +7596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 100000
-  hp: 1
+  hp: 150
   explosion: {fileID: 7115207030335421265, guid: 3f42c596a34d2e74fa33b12e3ac13a8c, type: 3}
   enemyBulletPref: {fileID: 7145034725023215559, guid: b634beed045f8e9438044a50054f0fb8, type: 3}
   destroyed:
