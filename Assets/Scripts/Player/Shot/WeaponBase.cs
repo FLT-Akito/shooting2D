@@ -17,6 +17,7 @@ public abstract class WeaponBase : MonoBehaviour
     {
         Init();
     }
+
     void Update()
     {
         time += Time.deltaTime;

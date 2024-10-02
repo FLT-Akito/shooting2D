@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponDouble : WeaponBase
 {
     public Vector2 direction2;
+
     public override void Shot()
     {
         PlayerBullet playerbullet1 = Instantiate(BulletPrefab, transform.position, Quaternion.identity).GetComponent<PlayerBullet>();
